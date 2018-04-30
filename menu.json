@@ -1,0 +1,12 @@
+{
+    "Home":["home"],
+    "Images and movies": ["title"],
+    "Global solar resources": ["show","global_solar_resources.png"],
+    "Fukushima radiation release": ["show","fukushima.mp4"],
+    "Interactive": ["title"],
+    "Find positions": ["link","/esglobe/where"],
+    "Drawing": ["link","/esglobe/draw/index.php"],
+    "Gapminder example": ["link","/esglobe/where/gm.html"],
+    "(some tests)": ["title"],
+    "remote image": ["show","@lake.mit.edu/~glenn/tmp/library.jpg"]
+}

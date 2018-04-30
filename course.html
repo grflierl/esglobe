@@ -1,0 +1,45 @@
+<html>
+  <head>
+<script src="../overlay.js"></script>
+<script>
+var sph=parent.getsph(location);
+
+function init(){
+    sph=parent.sph;
+    ovid=overlay("ov",["label"]);
+}
+function finis(){
+    overlay();
+}
+</script>
+  </head>
+  <body onload='init()' onunload='finis()'>
+    <span id='ov' style='display:none'>
+      <div style='position:absolute;left:10px;top:10px;z-index:5'>
+	<h2 id='label' style='color:cyan'>EsGlobe - 12.xxx</h2>
+      </div>
+    </span>
+
+    <h2>12.xxx - Using the EsGlobe Lab</h2>
+
+<p>
+    class info
+</p>
+
+<hr/>
+
+<p>
+The options now are in the menu, derived from <tt>menu.json</tt>.
+</p>
+<p>Note:
+<ul>
+<li>The overlay which disappears when a different page is loaded.</li>
+<li>The interactive routines for locating and for drawing</li>
+<li>The Gapminder GIS which interacts with a backend</li>
+</ul>
+</p>
+
+
+
+  </body>
+</html>

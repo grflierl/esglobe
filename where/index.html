@@ -1,0 +1,39 @@
+<html>
+<head>
+<script>
+sph=parent.sph;
+
+function init(){
+    sph.sphereClick=doclick;
+}
+function finis(){
+    sph.sphereClick=null;
+}
+
+function rnd(v,n){
+    return Math.round(v*n)/n;
+}
+function copyText(field,msg)
+{
+  document.getElementById(field).value=msg;
+}
+function doclick(xy,latlon){
+// returns [x,y] on a -1 to 1 and [lat,lon]
+    lat=rnd(latlon[0],10);
+    lon=rnd(latlon[1],10);
+    sph.orient(lat,lon);
+    copyText("m2lat",lat);
+    copyText("m2lon",lon);
+}
+</script>
+</head>
+
+<body onload='init()' onunload='finis()' style='background-color:#aabbcc'>
+
+<h2>I am at:</h2>
+<p>
+Lat <input type="text" id="m2lat"  name="lat" size=4 value="45"><br/>
+Lon <input type="text" id="m2lon" name="lon" size=4 value="-80"><br/>
+</p>
+</body>
+</html>
