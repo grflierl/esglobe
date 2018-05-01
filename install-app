@@ -3,6 +3,7 @@
 #  assumes your directory is ~/public_html/esglobe
 d=~/public_html/esglobe
 
+rm -f /tmp/$1.tgz
 wget -O /tmp/$1.tgz\
  https://github.com/grflierl/esglobe-apps/blob/master/$1.tgz?raw=true
 
