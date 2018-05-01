@@ -1,0 +1,38 @@
+<html>
+  <!-- Javascript modules --->
+<script src="p5.min.js"></script>
+<script src="p5.dom.min.js"></script>
+<script>
+var args={
+  sz:950,
+  w:450,
+scalefac:1.06,
+};
+qs=location.search;
+if(qs.length>0){
+    qsa=qs.slice(1).split(';');
+    for(i=0;i<qsa.length;i++){
+	a1=qsa[i].split('=');
+	args[a1[0]]=a1[1];
+    };
+};
+console.log(args);
+function setlabel(){
+    if(args["label"]){
+	document.getElementById("labx").data=args["label"];
+	if(args["labelheight"])document.getElementById("labx").height=args["labelheight"];
+    };
+}
+</script>
+<script src="sph-es.js"></script>
+<script>
+parent.sph = sph;
+</script>
+</head>
+
+<!-- main body -->
+<body onload='setlabel()'>
+<!--<center>Drag sphere to change viewpoint</center>-->
+<object id='labx' style='width:950'></object>
+</body>
+</html>
