@@ -49,6 +49,14 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+img{
+  padding: 0px;
+  border:0px;
+  margin: 0px;
+  width: 32px;
+  height: 20px;
+}
 </style>
 <ul>
 <li class="dropdown" style="float:right">
@@ -70,17 +78,26 @@ switch($v[0]){
     echo "<a href='javascript:sph.show(\"".$v[1]."\")'>".$k."</a>\n";
     break;
   case "link":
-    if(strpos($v[1],"/")===0 || strpos($v[1],"@")===0){
+    if(strpos($v[1],"/")===0){
       echo "<a href='".$v[1]."' target='pages'>".$k."</a>\n";
     } else {
       echo "<a href='".$d."/".$v[1]."' target='pages'>".$k."</a>\n";
     };
+    break;
+  case "js":
+    echo "<a href='javascript:".$v[1]."'>".$k."</a>\n";
+    break;
+  case "raw":
+    echo "<a href='".$v[1]."'>".$k."</a>\n";
+    break;
   };
 };
 ?>
 </div>
 </li>
 <li><a href='javascript:sph.orient(0,0)'>Recenter</a></li>
+<li><a href='javascript:sph.rot(0.005)'><img src='ccw2.png'/></a></li>
+<li><a href='javascript:sph.rot(-0.005)'><img src='cw2.png'/></a></li>
 <li><a href='javascript:sph.pause()'>Pause/resume</a></li>
 <li><a href='javascript:sph.stop()'>Stop movie</a></li>
 </ul>
