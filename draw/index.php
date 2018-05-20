@@ -8,7 +8,7 @@
 Color="red";
 x0=0;
 y0=0;
-Linewidth=2;
+Linewidth=3;
 Linestyle="Freehand";
 Mousedown=false;
 textmode=false;
@@ -17,7 +17,7 @@ Font="sans-serif";
 Fontsize="25";
 Fontweight="";
 Fontslant="";
-Brushtype="Pencil";
+Brushtype="Flat_Brush";
 Opacity=1;
 Orient=true;
 drawlist=[];
@@ -99,7 +99,7 @@ function drawAirbrush(xp,yp,x,y){
 brushes={Pencil:drawPencil,Flat_Brush:drawFlatBrush,Round_Brush:drawRoundBrush,
 	 Airbrush:drawAirbrush};
 
-Brush=drawPencil;
+Brush=drawFlatBrush;
 
 function setbrush(){
     b=getid('brush');
@@ -426,12 +426,12 @@ Style:&nbsp; <select id='linestyle' onchange="Linestyle=getid('linestyle')">
 -->
 Line thickness:&nbsp;
 <input id="linewidth" type="number" min="1" max="20" style="width:5"
-onchange="Linewidth=getid('linewidth')" value="2"/>
+onchange="Linewidth=getid('linewidth')" value="3"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Brush:&nbsp;
 <select id="brush" onchange="setbrush()">
-<option selected>Pencil
-<option>Flat_Brush
+<option>Pencil
+<option selected>Flat_Brush
 <!--
 <option>Round_Brush
 <option>Airbrush
