@@ -26,7 +26,8 @@ function setlabel(){
 </script>
 <script src="sph-es.js"></script>
 <script>
-parent.sph = sph;
+  parent.sph = sph;
+  if(args["base"])sph.baseurl=args["base"]+"/graphics/";
 </script>
 </head>
 
