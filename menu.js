@@ -13,4 +13,4 @@ menu={
     "Drawing": ["link","/esglobe/draw/index.php"],
     "Gapminder example": ["link","/esglobe/where/gm.html"]
 };
-for(j=1;j<4;j++)menu["ps-"+j]=["raw","href='pset-"+j+".pdf' target='pdf'"];
+//for(j=1;j<4;j++)menu["ps-"+j]=["raw","href='pset-"+j+".pdf' target='pdf'"];
