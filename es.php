@@ -120,7 +120,7 @@ for(k in menu){
 	s="<a href='javascript:sph.show(\""+v+"\")'>"+k+"</a>\n";
 	break;
     case "link":
-	if(v.includes("/")){
+	if(v.indexOf("/") >= 0){
 	    s="<a href='"+v+"' target='pages'>"+k+"</a>\n";
 	} else {
 	    s="<a href='<?php echo $d?>/"+v+"' target='pages'>"+k+"</a>\n";
