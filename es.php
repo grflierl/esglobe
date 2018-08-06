@@ -88,7 +88,7 @@ img{
 <!-- Javascript modules --->
 <script src="p5.min.js"></script>
 <script src="p5.dom.min.js"></script>
-<script src="<?php echo $d?>/menu.js"></script>
+<!--<script src="<?php echo $d?>/menu.js"></script> -->
 <script>
 var args={
   sz:950,
@@ -104,9 +104,17 @@ var args={
   ?>
 };
 
-menustr="";
-for(k in menu){
-    typ=menu[k];
+savedmenu=[];
+function setmenu(menus){
+  if(!menus){
+    if (savedmenu.length>0)
+      document.getElementById("menu").innerHTML=savedmenu.pop();
+    return;
+  };    
+  savedmenu.push(document.getElementById("menu").innerHTML);
+  menustr="";
+  for(k in menus){
+    typ=menus[k];
     v=typ[1];
     typ=typ[0];
     switch(typ){
@@ -134,7 +142,9 @@ for(k in menu){
 	break;
     };
     menustr+=s;
-};
+  };
+  document.getElementById("menu").innerHTML=menustr;
+}
 
 function getsph(loc){
   bn=loc.pathname;
@@ -149,7 +159,8 @@ function getsph(loc){
 
 function init(){
   console.log(sph);
-  document.getElementById("menu").innerHTML=menustr;
+//  savedmenu=menu;
+//  makemenu(menu);
 }
 </script>
 

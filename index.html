@@ -1,6 +1,14 @@
 ﻿<html>
 <style>
-  body{font-size:20px}
+  body{
+  font-size:20px;
+  color:white;
+  background-image: url("stars.jpg");
+  background-repeat: no-repeat;
+  }
+  a{
+  color:white;
+  }
 </style>
 <body>
 
@@ -11,22 +19,38 @@
 
 <h2>EsGlobe</h2>
 
-<p>
-This illustrates showing some images
-</p>
-
-<!-- links to files on the server -->
-<p>
-<a href='javascript:sph.show("global_solar_resources.png")'>Solar resources</a>
-</p>
+The EsGlobe is an educational resource under development with funding from
+ESI.  It is an interactive data display for rendering environmental or model
+data onto a sphere which can be tilted, rotated, and, most importantly allow
+interaction with the underlying data sets.
 
 <p>
-<a href='javascript:sph.orient(50,180);sph.show("fukushima.mp4")'>Fukushima Radioactive Aerosol Dispersion</a>
+  <h3>Showing data</h3>
+  <ul>
+    <li><a href='javascript:sph.show("global_solar_resources.png")'>Solar
+	resources</a>
+    <li><a href='javascript:sph.show("global_wind_resources.png")'>Wind resources</a>
+  </ul>
+</p>
+<p>
+  <h3>and movies</h3>
+  <ul>
+    <li><a href='javascript:sph.orient(50,180);sph.show("fukushima.mp4")'>Fukushima
+	Radioactive Aerosol Dispersion</a>
+    <li><a href='javascript:sph.orient(20,0);sph.show("/esglobe/307/graphics/aerosols.mp4")'>Atmospheric
+    Aerosols</a> 
+  </ul>
 </p>
 
-<!-- link to file elsewhere -->
 <p>
-<a href='javascript:sph.show("@lake.mit.edu/~glenn/esglobe/library.jpg")'>Image
-  on a different web server</a>
+  <h3>Course and interactive examples</h3>
+  <ul>
+    <li><a href="http://eddies.mit.edu/esglobe/es.php?course.html">Structure
+    of course web page
+    <li><a href="http://eddies.mit.edu/esglobe/es.php?gapminder/  gm1.html">Gapminder
+    example
+  </ul>
+</p>
+
 </body>
 </html>

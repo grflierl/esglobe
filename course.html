@@ -1,14 +1,17 @@
 <html>
   <head>
 <script src="overlay.js"></script>
+<script src="menu.js"></script>
 <script>
 var sph=parent.getsph(location);
 
 function init(){
     ovid=overlay("ov",["label"]);
+    parent.setmenu(menu);
 }
 function finis(){
     overlay();
+//    parent.setmenu();
 }
 </script>
   </head>
