@@ -18,9 +18,12 @@ if(qs.length>0){
 };
 console.log(args);
 function setlabel(){
+//    if(args["label"]){
+//	document.getElementById("labx").data=args["label"];
+//	if(args["labelheight"])document.getElementById("labx").height=args["labelheight"];
+//    };
     if(args["label"]){
-	document.getElementById("labx").data=args["label"];
-	if(args["labelheight"])document.getElementById("labx").height=args["labelheight"];
+	document.getElementById("labx").innerHTML=decodeURI(args["label"]);
     };
 }
 </script>
@@ -33,7 +36,10 @@ function setlabel(){
 
 <!-- main body -->
 <body onload='setlabel()'>
-<!--<center>Drag sphere to change viewpoint</center>-->
-<object id='labx' style='width:950'></object>
+<!--<center>Drag sphere to change viewpoint</center>
+<object id='labx' style='width:950'></object>-->
+<div style='position:absolute;left:10px;top:10px;z-index:5'>
+  <h2 style='color:#0077aa'><span id='labx'></span></h2>
+</div>
 </body>
 </html>
