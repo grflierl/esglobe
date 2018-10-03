@@ -1,8 +1,4 @@
 //   url="iglobe.php/earth"+res[0]+".jpg";
-var sz = args.sz;
-var w = args.w;
-var scalefac=args.scalefac;
-
 var sph = {
     rot: rot,
     tilt: tilt,
@@ -13,7 +9,7 @@ var sph = {
     sphereDrag: null,
     mouseDown: null,
     mouseUp: null,
-    url: null,
+    im: "earth2048.jpg",
     res: null,
     baseurl: "graphics/",
     getcanvas: getcanvas,
@@ -24,20 +20,24 @@ var sph = {
     xy2latlon: xy2latlon,
     pause:pauseSphere,
     notify:null,
+    position:[8,8],
+    sz:950,
+    w:450,
+    scalefac:1.06,
 };
 
-if ("res" in args) {
-    var res = args.res;
-} else {
-    var res = [2048, 1024];
-}
-if ("im" in args) {
-    var url = rebase(args.im);
-} else {
-    var url = rebase("earth2048.jpg");
-}
-sph.url=url;
-sph.res=res;
+for (nm in args) {
+    r=args[nm];
+    if (r[0]=="[") r=eval(r);
+    sph[nm]=r;
+};
+
+var url=rebase(sph.im);
+sph.im=url;
+var sz = sph.sz;
+var w = sph.w;
+var scalefac=sph.scalefac;
+
 
 var movie=false;
 var playing=true;
@@ -105,7 +105,7 @@ function drawSphere(){
 }
 
 function checkSphere(im){
-    pg.image(im,0,0,im.width,im.height,0,0,res[0],res[1]);
+    pg.image(im,0,0,im.width,im.height,0,0,2048,1024);
     nSphere += skp;
     if(sph.notify)sph.notify(true);
     if(!movie) {
@@ -246,8 +246,9 @@ function myevent(e){
 
 function setup(){
     maincanvas=createCanvas(sz, sz, WEBGL);
+    maincanvas.position(sph.position[0],sph.position[1]);
     ortho(-width/2,width/2,-height/2,height/2,-1000,1000);
-    pg = createGraphics(res[0],res[1]);
+    pg = createGraphics(2048,1024);
     loadSphere(0);
 //    maincanvas.elt.addEventListener('keydown', myevent, false);
 }
@@ -315,7 +316,7 @@ function putcanvas(c){
 };
 
 function reload(c){
-    pg = createGraphics(res[0],res[1]);
+    pg = createGraphics(2048,1024);
     loadSphere(0);
 }
 

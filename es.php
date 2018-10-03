@@ -91,9 +91,9 @@ img{
 <!--<script src="<?php echo $d?>/menu.js"></script> -->
 <script>
 var args={
-  sz:950,
-  w:450,
-  scalefac:1.06,
+//  sz:950,
+//  w:450,
+//  scalefac:1.06,
   <?php
   if(count($qs) > 1)
   for ($n=1;$n<count($qs);$n++){
@@ -104,14 +104,7 @@ var args={
   ?>
 };
 
-savedmenu=[];
 function setmenu(menus){
-  if(!menus){
-    if (savedmenu.length>0)
-      document.getElementById("menu").innerHTML=savedmenu.pop();
-    return;
-  };    
-  savedmenu.push(document.getElementById("menu").innerHTML);
   menustr="";
   for(k in menus){
     typ=menus[k];
@@ -176,9 +169,9 @@ function init(){
 </script>
 <div class='rhs'>
  <ul>
-<li class="dropdown" style="float:right">
-<a href="javascript:void(0)" class="dropbtn">Menu</a>
-<div class="dropdown-content" style="right:0">
+<li class="dropdown" style="float:left">
+<a href="javascript:void(0)" class="dropbtn">MENU</a>
+<div class="dropdown-content" style="left:0">
 <span id='menu'></span>
 </div>
 </li>
