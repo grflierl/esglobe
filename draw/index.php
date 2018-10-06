@@ -235,7 +235,7 @@ function dodrag(xy,latlon){
 	currentlist=[[Linestyle,Linewidth,Color,Brushtype,Opacity],[-1,x,y]];
 	return false;
     };
-    r0=sph.res[0];
+    r0=2048;
     if (Math.abs(x_p-x)<0.75*r0) {
 	Brush(x_p,y_p,x,y);
   } else {

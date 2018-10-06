@@ -1,4 +1,3 @@
-//   url="iglobe.php/earth"+res[0]+".jpg";
 var sph = {
     rot: rot,
     tilt: tilt,
@@ -10,8 +9,7 @@ var sph = {
     mouseDown: null,
     mouseUp: null,
     im: "earth2048.jpg",
-    res: null,
-    baseurl: "graphics/",
+    baseurl: "/esglobe/",
     getcanvas: getcanvas,
     putcanvas: putcanvas,
     reload: reload,
@@ -46,7 +44,6 @@ var vid;
 
 var pi=3.1415926536;
 var radtodeg=180.0/pi;
-//var res=[1024,512];
 
 var theta=pi;
 var phi=0;
@@ -61,15 +58,18 @@ var nSphere=0;
 var currentFrame=0;
 
 function rebase(nm){
-    if(nm.startsWith("@g:")){
-	console.log("get not implemented yet");
-    }else if(nm.startsWith("@p:")){
-	console.log("post not implemented yet");
+    if(nm.startsWith("<")){
+	if(nm.indexOf("#") >= 0){
+	    nm="/esglobe/s.php"+sph.baseurl+"scripts/"+nm.substr(1);
+	} else {
+	    nm="/esglobe/s0.php"+sph.baseurl+"scripts/"+nm.substr(1);
+	};
+	console.log("rebase -> "+nm);
     }else if(nm.startsWith("@")){
 	nm="/esglobe/ht.php/"+nm.substr(1);
 //	console.log("trans "+nm);
     }else if(!nm.startsWith("/")){
-	nm=sph.baseurl+nm;
+	nm=sph.baseurl+"graphics/"+nm;
     };
 //    console.log("rebase -> "+nm);
     return nm;
@@ -194,8 +194,8 @@ function latlon2xy(latlon){
     lon=latlon[1];
     if(lon<-180) lon +=360;
     if(lon>180) lon -=360;
-    return [Math.round(10.0*(lon+180.0)/360.0*res[0])/10.0,
-            Math.round(10.0*(90.0-lat)/180.0*res[1])/10.0];
+    return [Math.round(10.0*(lon+180.0)/360.0*2048)/10.0,
+            Math.round(10.0*(90.0-lat)/180.0*1024)/10.0];
 }
 function xy2latlon(xz){
     xt=xz[0];

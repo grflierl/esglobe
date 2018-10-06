@@ -76,7 +76,7 @@ li.dropdown {
     display: block;
 }
 
-img{
+.rot{
   padding: 0px;
   border:0px;
   margin: 0px;
@@ -142,10 +142,10 @@ function setmenu(menus){
 function getsph(loc){
   bn=loc.pathname;
   if(bn.endsWith("/"))
-    sph.baseurl=bn+"graphics/";
+    sph.baseurl=bn;
   else {
     i=bn.lastIndexOf('/');
-    sph.baseurl=bn.substr(0,i)+"/graphics/";
+    sph.baseurl=bn.substr(0,i)+"/";
   };
   return sph;
   }
@@ -162,7 +162,6 @@ function init(){
 
 <!-- main body -->
 <body onload='init()'>
-<script src="sph-es.js"></script>
 <script>
   var sph = window.sph;
 //  sph.baseurl="/esglobe/307/graphics/"
@@ -176,8 +175,8 @@ function init(){
 </div>
 </li>
 <li><a href='javascript:sph.orient(0,0)'>Recenter</a></li>
-<li><a href='javascript:sph.rot(0.005)'><img src='ccw2.png'/></a></li>
-<li><a href='javascript:sph.rot(-0.005)'><img src='cw2.png'/></a></li>
+<li><a href='javascript:sph.rot(0.005)'><img src='ccw2.png' class='rot'/></a></li>
+<li><a href='javascript:sph.rot(-0.005)'><img src='cw2.png' class='rot'/></a></li>
 <li><a href='javascript:sph.pause()'>Pause/resume</a></li>
 <li><a href='javascript:sph.stop()'>Stop movie</a></li>
 </ul>
