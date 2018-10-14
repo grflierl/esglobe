@@ -76,13 +76,6 @@ li.dropdown {
     display: block;
 }
 
-.rot{
-  padding: 0px;
-  border:0px;
-  margin: 0px;
-  width: 32px;
-  height: 20px;
-}
 </style>
 
 <!-- Javascript modules --->
@@ -166,6 +159,29 @@ function init(){
   var sph = window.sph;
 //  sph.baseurl="/esglobe/307/graphics/"
 </script>
+<!--
+<img src="cmd.jpg"
+     style='position:absolute;left:1000px;top:10px;width:48px;height:216px'
+     usemap='#ctlmap'/>
+<map name='ctlmap'>
+  <area shape='rect' coords='0,0,47,35' href='javascript:sph.orient(0,0)'>
+  <area shape='rect' coords='0,36,47,71' href='javascript:sph.rot(0.005)'>
+  <area shape='rect' coords='0,72,47,110' href='javascript:sph.rot(-0.005)'>
+  <area shape='rect' coords='0,111,47,152' href='javascript:sph.pause()'>
+  <area shape='rect' coords='0,153,47,215' href='javascript:sph.stop()'>
+</map>
+-->
+<img src="cmd2.jpg"
+     style='position:absolute;left:1000px;top:10px;width:48px;height:208px'
+     usemap='#ctlmap'/>
+<map name='ctlmap'>
+  <area shape='rect' coords='0,8,47,39' href='javascript:sph.orient(0,0)'>
+  <area shape='rect' coords='0,48,47,79' href='javascript:sph.rot(0.005)'>
+  <area shape='rect' coords='0,88,47,119' href='javascript:sph.rot(-0.005)'>
+  <area shape='rect' coords='0,128,47,159' href='javascript:sph.pause()'>
+  <area shape='rect' coords='0,168,47,199' href='javascript:sph.stop()'>
+</map>
+
 <div class='rhs'>
  <ul>
 <li class="dropdown" style="float:left">
@@ -174,12 +190,14 @@ function init(){
 <span id='menu'></span>
 </div>
 </li>
+<!--
 <li><a href='javascript:sph.orient(0,0)'>Recenter</a></li>
-<li><a href='javascript:sph.rot(0.005)'><img src='ccw2.png' class='rot'/></a></li>
-<li><a href='javascript:sph.rot(-0.005)'><img src='cw2.png' class='rot'/></a></li>
+<li><a href='javascript:sph.rot(0.005)'><img src='ccw2.png'/></a></li>
+<li><a href='javascript:sph.rot(-0.005)'><img src='cw2.png'/></a></li>
 <li><a href='javascript:sph.pause()'>Pause/resume</a></li>
 <li><a href='javascript:sph.stop()'>Stop movie</a></li>
-</ul>
+-->
+ </ul>
 <iframe id='ifr' name="pages" src="http:<?php echo $url?>" height=900px width=800px>
 </iframe>
 </div>

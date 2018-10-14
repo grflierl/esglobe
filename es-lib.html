@@ -1,0 +1,40 @@
+<html>
+  <!-- Javascript modules --->
+<script src="http://eddies.mit.edu/esglobe/p5.min.js"></script>
+<script src="http://eddies.mit.edu/esglobe/p5.dom.min.js"></script>
+<script>
+var args={
+  im:"@eddies.mit.edu/esglobe/graphics/earth2048.jpg",
+};
+</script>
+<script src="http://eddies.mit.edu/esglobe/sph-es.js"></script>
+<script>
+  parent.sph = sph;
+</script>
+</head>
+
+<!-- main body -->
+<body>
+<div style='float:right;width:50%'>
+<h2>EsGlobe</h2>
+
+<p>
+This illustrates showing some images
+</p>
+
+<!-- links to files on the server. They are in the graphics subdirectory -->
+<p>
+<a href='javascript:sph.show("global_solar_resources.png")'>Solar resources</a>
+</p>
+
+<p>
+<a href='javascript:sph.show("<plastic?#;42;-50")'>Wind resources</a>
+</p>
+
+<p>
+<a href='javascript:sph.orient(20,180);sph.show("fukushima.mp4")'>Fukushima aerosols</a>
+</p>
+
+</div>
+</body>
+</html>
