@@ -1,0 +1,7 @@
+.btn.btn-default {
+  opacity: 0.5;
+}
+
+.btn.btn-default.active {
+  opacity: 1.0;
+}

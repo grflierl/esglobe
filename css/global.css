@@ -1,0 +1,7 @@
+/* css included by all the widgets, global overrides */
+
+.form-control {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}

@@ -1,0 +1,100 @@
+<html ng-app='globeControlsWidget' style="overflow: hidden;">
+<base href="/esglobe/esglobe_modules/ocean_climatology/" />
+<head>
+  <link rel='stylesheet' href='/css/global.css' />
+  <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.5.6/angular-resource.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-animate.min.js"></script>
+
+  <script src="./js/Resources/backend.js"></script>
+  <script src="./js/Resources/defaults.js"></script>
+  <script src="./widgets/globeControlsWidget/globeControlsWidget.js"></script>
+  <link rel="stylesheet" href="./widgets/globeControlsWidget/globeControlsWidget.css">
+</head>
+
+<body class="iframe globe-controls" ng-controller="GlobeControlsWidgetController">
+<form name="esrlForm">
+  <fieldset ng-disabled="isLoading">
+    <div class="row gutter-sm">
+      <div class="col-xs-2">
+        <div class="form-group">
+          <label>Field</label>
+          <select class="form-control sm" name="field" id="field" ng-model="input.field" ng-model-options="{debounce:500}">
+            <option value='{{key}}' ng-repeat="(key, val) in data.fields">{{val}}</option>
+          </select>
+
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <div class="form-group">
+          <label>Time</label>
+          <select class="form-control sm" name="time" id="time" ng-options="val as val for val in data.timeDropdown" ng-model="input.time"></select>
+
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <div class="form-group">
+          <label>Depth (m)</label>
+          <select class="form-control sm" name="press" id="press"
+                  ng-model="input.depth"
+                  ng-options="depth as depth for depth in data.depths"
+                  ng-model-options="{debounce:500}">
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-3" ng-show='flags.movie' >
+        <div class="form-group multiple-inline">
+          <label>Movie Speed</label>
+          <div class="input-group pull-left margin-right-5px" style="width: 50%;">
+            <select class='form-control sm' ng-model="flags.delay" ng-model-options='{debounce: 500}' ng-change="setDelay()">
+              <option value="1">1</option>
+              <option value="0.5">0.5</option>
+              <option value="0.25">0.25</option>
+              <option value="0.1">0.1</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div class="form-group">
+          <label>Time Step</label>
+          <div>
+            <span class="btn btn-primary" ng-click="playMovie()" ng-show="!flags.movie">
+                <span class="fa fa-play"></span>
+            </span>
+
+            <span class="btn btn-primary" ng-click="pauseMovie()" ng-show="flags.movie">
+                <span class="fa fa-pause"></span>
+            </span>
+
+
+            <span class="btn btn-primary" ng-click="stepBack()">
+                <span class="fa fa-step-backward"></span>
+            </span>
+            <span class="btn btn-primary" ng-click="stepForward()">
+              <span class="fa fa-step-forward"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-1">
+        <!--<div class="form-group">
+          <label class="block">Setup</label>
+          <button type='button' class="btn btn-default" ng-click="globeSetup()"><span class="fa fa-gear"></span></button>
+        </div>-->
+        <div class="form-group">
+          <span ng-if='isLoading' class="fa fa-spinner fa-spin fa-2x" style="position: absolute; right: -28px; top: 22px; color: lightgray;"></span>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</body>
+</html>

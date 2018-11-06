@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label for="{{name}}">{{label}} {{#if required}}<span class="required">*</span>{{/if}}</label>
+  <select class="form-control" name="{{name}}" {{#if required}}required{{/if}} id="{{name}}">
+    <option value="">None</option>
+    {{#each dropdown}}
+      <option value="{{this.value}}">{{this.label}}</option>
+    {{/each}}
+  </select>
+</div>

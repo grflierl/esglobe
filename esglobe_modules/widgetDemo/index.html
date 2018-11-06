@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel='stylesheet' href='/js/vendor/bootstrap/dist/css/bootstrap.css' />
+  <link rel='stylesheet' href='/js/vendor/bootstrap/dist/css/bootstrap-theme.css' />
+  <link rel='stylesheet' href='/css/app.css' />
+
+  <script src="/js/vendor/jquery/dist/jquery.js"></script>
+  <script src="/js/vendor/jquery-validation/dist/jquery.validate.js"></script>
+  <script src="/js/vendor/lodash/lodash.js"></script>
+  <script src="/js/vendor/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/js/vendor/handlebars/dist/handlebars.js"></script>
+
+  <script src="/config/globe.js"></script>
+  <script src="/js/formBuilder.js"></script>
+  <script src="/js/esmodule.js"></script>
+  <script src="/js/emitter.js"></script>
+  <script src="/js/sph-es.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="./css/app.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="./js/index.js"></script>
+
+  <style>
+    body {
+      background-image: none !important;
+      background-color: transparent !important;
+    }
+  </style>
+</head>
+<body>
+<script>
+    var sph = window.sph;
+</script>
+<div class="container-fluid iframe">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Widget Demo</h1>
+      <button class="btn btn-default" id="demoButton">Module Button (press to send data to widgets)</button>
+      <div id="moduleMsg"></div>
+
+      <div class="row margin-top-8px">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label>Progress (change me)</label>
+            <input type="number" value="25" class="form-control" min="0" max="100" step="5" id="progressBar">
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-top-8px">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label>Load data from Custom Backend</label>
+            <button class="btn btn-primary form-control" id="loadDataButton">Load Data</button>
+            <div id="dataOut"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-top-8px">
+        <div class="col-xs-9">
+          <div class="form-group">
+            <label>Load Resource (try "mp.png", or local path like "/tmp/image.png")</label>
+            <input type="text" class="form-control" id="loadResourceText">
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <label class="clear">&nbsp;</label>
+            <button type="button" class="form-control" id="loadResource">Load</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row margin-top-8px">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label>Execute Python Script, and Update Globe</label>
+            <button class="btn btn-primary form-control" id="loadPythonButton">Run Python Script</button>
+            <div id="dataOut2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="example_form"></div>
+      <br/><br/>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="message" style='display:none;' class="alert alert-success"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+

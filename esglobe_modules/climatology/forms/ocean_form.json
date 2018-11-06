@@ -1,0 +1,26 @@
+{
+    "scriptName": "hello_world.py",
+    "form": {
+        "firstName": {
+            "type": "text",
+            "col": 6,
+            "required": true
+        },
+        "lastName": {
+            "type": "text",
+            "col": 6
+        },
+        "age": {
+            "type": "number",
+            "col": 3,
+            "min": 6,
+            "max": 100
+        },
+        "dropdownTest": {
+            "type": "dropdown",
+            "required": true,
+            "col": 9,
+            "data": [100, 200, 300, 400]
+        }
+    }
+}

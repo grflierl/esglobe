@@ -1,0 +1,21 @@
+{
+    "scriptName": "backend/ocean.php",
+    "form": {
+        "field": {
+            "type": "dropdown",
+            "col": 6,
+            "data": ['THETA', 'EVELMASS', 'NVELMASS', 'oceTAUE'],
+            "required": true
+        },
+        "month": {
+            "type": "dropdown",
+            "col": 6,
+            "data": [0, 1, 2, 3, 4, 5, 6]
+        },
+        "depth": {
+            "type": "dropdown",
+            "col": 6,
+            "data": [0, 1, 2, 3, 4, 5, 6]
+        }
+    }
+}

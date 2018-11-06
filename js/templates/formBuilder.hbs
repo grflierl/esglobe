@@ -1,0 +1,29 @@
+<form method="post" action="/api/{{moduleName}}/script" id="_{{formName}}">
+  <input type="hidden" name='scriptName' value="{{scriptName}}">
+  {{#each rows}}
+    <div class="row">
+      {{#each this}}
+        <div class="col-xs-{{this.col}}">
+          {{#ifeq type 'text'}}
+            {{>inputText}}
+          {{/ifeq}}
+
+          {{#ifeq type 'number'}}
+            {{>inputNumber}}
+          {{/ifeq}}
+
+          {{#ifeq type 'dropdown'}}
+            {{>inputDropdown}}
+          {{/ifeq}}
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+  <input type="submit" class="btn btn-default" value="Submit Form">
+</form>
+
+<script>
+  $(document).ready(function () {
+    $("#_{{formName}}").validate();
+  })
+</script>

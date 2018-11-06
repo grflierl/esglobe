@@ -1,0 +1,239 @@
+.row.padding {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.margin-top-10px {
+    margin-top: 10px;
+}
+
+.container-fluid{
+    min-width: 1200px;
+    padding: 0px;
+}
+
+.container-input {
+    background-color: rgba(255,255,255,0.8);
+    height: 100%;
+    position: fixed;
+    right: 0px;
+    min-width: 450px;
+}
+
+.no-gutter {
+    padding: 0;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.gutter-sm [class^="col-"]{
+    padding: 0px 5px;
+}
+
+.row.gutter-sm {
+    margin-left: -5px;
+}
+
+.background-primary {
+    background-color: #337ab7;
+    color: white;
+}
+
+
+.margin-right-5px {
+    margin-right: 5px;
+}
+
+.block {
+    display: block;
+}
+
+input.ng-dirty.ng-invalid {
+    border: 1px solid red;
+}
+
+div.ext {
+    position: absolute;
+    top: 0px;
+    left: 850px;
+    border: 3px solid #0077ff;
+    background-color: #f1f1d4;
+}
+
+#canvas-container {
+}
+
+#canvas-container canvas {
+    pointer-events: none;
+}
+
+.row.margin-bottom-05em {
+    margin-bottom: 0.5em !important;
+}
+
+#esrl2 {
+    overflow-x:hidden;
+    overflow-y: hidden;
+    height: 100%;
+    padding-bottom: 80px;
+}
+
+.btn.btn-primary:disabled {
+    background-color: #87afd9;
+    border: none;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-group label {
+    margin-bottom: 2px;
+}
+
+.form-group.sm .toggle.btn {
+    height: 28px !important;
+    min-height: 28px !important;
+}
+
+.form-group.sm .toggle-group .btn {
+    margin-top: -3px !important;
+}
+
+.navbar {
+    margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input.show-controls::-webkit-outer-spin-button,
+input.show-controls::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: normal;
+    margin: inherit; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.toggle-group {
+    bottom: -3px;
+}
+
+.fa-spinner.ng-animate { -webkit-animation: none 0s; }
+
+.widget#title-widget {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 200px;
+    height: 80px;
+    background-color: transparent;
+    border: none;
+}
+
+.iframe.title {
+    background-color: transparent;
+}
+
+.iframe.title h1 {
+    color: white;
+    padding: 0px;
+    margin:0px;
+    font-size:18px;
+    font-family: 'Helvetica Neue';
+}
+
+.widget#globe-controls-widget {
+    position: fixed;
+    width: 60%;
+    height: 80px;
+    background-color: transparent;
+    border: none;
+    bottom: -8px;
+    left: 20px;
+}
+
+.iframe.globe-controls {
+    background-color: transparent;
+}
+
+
+.iframe.globe-controls label {
+    color: white;
+}
+
+.widget#globe-colorbar-widget {
+    position: fixed;
+    width: 120px;
+    height: 300px;
+    background-color: transparent;
+    border: none;
+    bottom: 65px;
+    left: -7px;
+}
+
+.widget#globe-colorbar-widget img {
+    position: absolute;
+    left: -20px;
+}
+
+.form-control.sm {
+    height: 28px;
+    padding: 0px 5px;
+}
+
+.form-group.multiple-inline > label {
+    display: block;
+}
+
+.form-group.multiple-inline span {
+    position: relative;
+    float: left;
+    margin-right: 4px;
+}
+
+.movie-month-text {
+    margin-top: -1px;
+    font-size: 11px;
+}
+
+.level-indicator {
+    position: absolute;
+    width: 610px;
+    height: 4px;
+    background-color: white;
+    left: 80px;
+    opacity: 0.8;
+    bottom: 45px;
+}
+
+.level-indicator .level-up {
+    position: absolute;
+    right: 0px;
+    top: -15px;
+}
+
+.level-indicator .level-down {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+}
+
+body {
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+.widget.title {
+    color: white;
+}
+
+.widget.title h1 {
+    font-size: 26px;
+    padding: 0px;
+    margin: 0px;
+}

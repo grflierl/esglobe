@@ -1,0 +1,57 @@
+.block {
+    display: block;
+}
+
+.form-group label {
+    margin-bottom: 2px;
+}
+
+body {
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+.form-control.sm {
+    height: 28px;
+    padding: 0px 5px;
+}
+
+.gutter-sm [class^="col-"]{
+    padding: 0px 5px;
+}
+
+.row.gutter-sm {
+    margin-left: -5px;
+}
+
+.form-group.sm .toggle-group .btn {
+    margin-top: -3px !important;
+}
+
+.toggle-group {
+    bottom: -3px;
+}
+
+.form-group.sm .toggle.btn {
+    height: 28px !important;
+    min-height: 28px !important;
+}
+
+.form-group.multiple-inline > label {
+    display: block;
+}
+
+.form-group.multiple-inline span {
+    position: relative;
+    float: left;
+    margin-right: 4px;
+}
+
+.movie-month-text {
+    margin-top: -1px;
+    font-size: 11px;
+}
+
+.margin-right-5px {
+    margin-right: 5px;
+}

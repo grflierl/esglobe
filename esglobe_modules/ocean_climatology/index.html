@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html ng-app='oceanClimatology'>
+<base href="/esglobe_modules/ocean_climatology/" />
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='/css/app.css' />
+
+  <script src="/js/vendor/jquery/dist/jquery.js"></script>
+  <script src="/js/vendor/jquery-validation/dist/jquery.validate.js"></script>
+  <script src="/js/vendor/lodash/lodash.js"></script>
+  <script src="/js/vendor/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/js/vendor/handlebars/dist/handlebars.js"></script>
+
+  <!-- Angular Scripts --->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.5.6/angular-resource.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-animate.min.js"></script>
+
+  <!-- angular boostrap toggle -->
+  <link href="./js/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="./js/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
+
+  <script src="/config/globe.js"></script>
+  <script src="/js/formBuilder.js"></script>
+  <script src="/js/esmodule.js"></script>
+  <script src="/js/emitter.js"></script>
+  <script src="/js/sph-es.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel='stylesheet' href='./css/app.css' />
+  <script src="js/Resources/backend.js"></script>
+  <script src="js/Resources/defaults.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/index.js"></script>
+
+  <style>
+    body {
+      background-image: none !important;
+      background-color: transparent !important;
+    }
+  </style>
+</head>
+<body ng-controller="OceanClimatologyCtrl">
+<div class="row gutter">
+  <div class="col-xs-12">
+    <h2>Ocean Climatology</h2>
+    <p>Estimating the Circulation and Climate of the Ocean version 4 release 2 is an ocean state estimate and solution of the MIT general circulation model that covers the period from 1992 to 2011; see <a href="http://eccov4.readthedocs.io/en/latest/">Ecco v4 documentation</a> and <a href="https://doi.org/10.5194/gmd-8-3071-2015">Geosci. Model Dev.</a>, 8, 3071-3104, 2015 for details.</p>
+
+    <!--- Image --->
+    <div class="row" ng-if="data.filename">
+      <!-- Section plot image -->
+      <div class="col-xs-12">
+        <a href="#" ng-click="openLightboxModal(filename)">
+          <img style='width:654px; padding: 0;' ng-src="{{data.filePath}}{{data.filename}}" err-src="http://mit-es-globe2.devsign-consulting.com/esglobe_modules/ocean_climatology/graphics/placeholder.jpg">
+        </a>
+      </div>
+    </div>
+    <div class="row padding" ng-if="filename">
+      <div class="col-xs-12">
+        <a ng-if="!section.input.field2" href="./backend/download_image.php?filename={{filename}}" download="{{section.input.field}}-{{section.input.time}}-{{section.input.press}}-lon{{section.input.lon}}.png">Download Image |</a>
+        <a ng-if="section.input.field2" href="./backend/download_image.php?filename={{filename}}" download="{{section.input.field}}-{{section.input.field2}}-{{section.input.time}}-{{section.input.press}}-lon{{section.input.lon}}.png">Download Image |</a>
+
+        <a href="#" ng-click="downloadSectionData()">Download Section Data</a> |
+        <a href="#" ng-click="downloadGlobeData()">Download Globe Data</a>
+      </div>
+    </div>
+
+
+    <form name="myForm">
+      <fieldset ng-disabled="isLoading">
+        <div class="row">
+          <!--- Field -->
+          <div class="col-xs-4">
+            <div class="form-group">
+              <label>Field</label>
+              <select class="form-control sm" name="field" id="field" ng-model="input.field" ng-model-options="{debounce:500}">
+                <option value='{{key}}' ng-repeat="(key, val) in data.fields">{{val}}</option>
+              </select>
+            </div>
+          </div>
+
+          <!--- Month -->
+          <div class="col-xs-2">
+            <div class="form-group">
+              <label>Month</label>
+              <select class="form-control sm"
+                      ng-options="time as time for time in data.timeArr"
+                      ng-model="input.time" ng-model-options="{debounce:500}">
+              </select>
+            </div>
+          </div>
+
+          <!--- Longitude -->
+          <div class="col-xs-2">
+            <div class="form-group">
+              <label>Longitude</label>
+              <input type="number" class="form-control sm" ng-model="input.lon">
+            </div>
+          </div>
+
+          <div class="col-xs-2">
+            <div class="form-group sm">
+              <label class="block">Log Scale</label>
+              <toggle type='checkbox' ng-model="input.logScale"></toggle>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!--- Depth Region-->
+          <div class="col-xs-3">
+            <div class="form-group">
+              <label>Depth Region</label>
+              <select class="form-control sm" name="depthRegion" id="depthRegion" ng-model="input.depthRegion" ng-model-options="{debounce:500}">
+                <option value='{{key}}' ng-repeat="(key, val) in data.depthRegion">{{val}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+
+
+<!--- Globe Settings Modal ---->
+<script type="text/ng-template" id="globeSettingsModal.html">
+  <form ng-submit="ctrl.ok()">
+    <div class="modal-body" id="modal-body">
+      <h3 Section>Globe Field: {{ctrl.input.globe.field}}</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label for="contourDensity">Contour Step</label>
+            <input class="form-control" id="contourStep" ng-model="ctrl.input.globe.contourStep" ng-model-options="{debounce: 500}" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" id="modal-footer">
+      <input type="button" class="btn btn-default pull-left" ng-click="ctrl.resetDefaults()" value="Reset Defaults">
+      <input type="submit" class="btn btn-primary" value="Save">
+      <input type="button" class="btn btn-default" ng-click="ctrl.cancel()" value="Cancel">
+    </div>
+  </form>
+</script>
+
+<!--- Lightbox Modal --->
+<script type='text/x-handlebars-template' id="lightboxModal">
+  <div class="modal-body" id="modal-body">
+    <img style='width:100%; padding:0; margin-top: 0px'; src="{{filename}}">
+    <p style="text-align:center">
+      {{#if input.field2}}
+      <a href="{{filename}}" download="{{input.field}}-{{input.time}}-{{input.press}}-lon{{input.lon}}.png">Download file</a>
+      {{else}}
+      <a href="{{filename}}" download="{{input.field}}-{{input.field2}}-{{input.time}}-{{input.press}}-lon{{input.lon}}.png">Download file</a>
+      {{/if}}
+    </p>
+  </div>
+</script>
+
+</body>
+</html>
+
+
+
+

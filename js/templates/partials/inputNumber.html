@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="{{name}}">{{label}} {{#if required}}<span class="required">*</span>{{/if}}</label>
+  <input min="{{min}}" max="{{max}}" {{#if step}}step="{{step}}"{{/if}} type="number" name="{{name}}"
+         class="form-control" id="{{name}}" placeholder="{{placeholder}}"
+         {{#if required}}required{{/if}}
+         value="{{value}}"
+         autocomplete="off"/>
+</div>
