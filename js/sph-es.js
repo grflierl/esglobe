@@ -1,6 +1,49 @@
 /**
  * ES Globe Sphere Code
  */
+var emitter = new EventEmitter();
+var sph = {
+    rot: rot,
+    rotStop: rotStop,
+    tilt: tilt,
+    orient: orient,
+    show: show,
+    skip: 1,
+    sphereClick: null,
+    sphereDrag: null,
+    mouseDown: null,
+    mouseUp: null,
+    url: url,
+    res: res,
+    getcanvas: getcanvas,
+    putcanvas: putcanvas,
+    reload: reload,
+    stop: stopSphere,
+    latlon2xy: latlon2xy,
+    getCurrentLatLon: getCurrentLatLon,
+    xy2latlon: xy2latlon,
+    pause:pauseSphere,
+    notify:null,
+    reset: resetSphere,
+    emitter: emitter,
+    plugins: {},
+    im: "earth2048.jpg",
+    baseurl: "/esglobe/",
+    position:[8,8],
+    sz:950,
+    w:450,
+    scalefac:1.06
+};
+
+if(typeof args != "undefined") {
+  for (nm in args) {
+    r=args[nm];
+    if (r[0]=="[") r=eval(r);
+    sph[nm]=r;
+      console.log(nm+" "+r);  
+  };
+};
+
 var esglobe = {
     sz: 900,
     w: 450,
@@ -10,17 +53,16 @@ var esglobe = {
 };
 
 var disableDrag = false;
-var emitter = new EventEmitter();
 
-var sz = esglobe.sz;
+var sz = sph.sz;
 var w = esglobe.w;
 var scalefac=esglobe.scalefac;
 var res = esglobe.res;
 
 
-var url = esglobe.image;
+var url = rebase(sph.im);
 
-var sph;
+//var sph;
 
 var movie=false;
 var playing=true;
@@ -343,38 +385,4 @@ function reload(c){
     pg = createGraphics(2048,1024);
     loadSphere(0);
 }
-
-var sph = {
-    rot: rot,
-    rotStop: rotStop,
-    tilt: tilt,
-    orient: orient,
-    show: show,
-    skip: 1,
-    sphereClick: null,
-    sphereDrag: null,
-    mouseDown: null,
-    mouseUp: null,
-    url: url,
-    res: res,
-    getcanvas: getcanvas,
-    putcanvas: putcanvas,
-    reload: reload,
-    stop: stopSphere,
-    latlon2xy: latlon2xy,
-    getCurrentLatLon: getCurrentLatLon,
-    xy2latlon: xy2latlon,
-    pause:pauseSphere,
-    notify:null,
-    reset: resetSphere,
-    emitter: emitter,
-    plugins: {},
-    im: "earth2048.jpg",
-    baseurl: "/esglobe/",
-    position:[8,8],
-    sz:950,
-    w:450,
-    scalefac:1.06
-};
-
 

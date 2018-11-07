@@ -93,15 +93,6 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
       <script src="./js/vendor/p5/lib/p5.min.js"></script>
       <script src="./js/vendor/p5/lib/addons/p5.dom.js"></script>
 
-      <script src="./config/globe.js"></script>
-      <script src="./js/formBuilder.js"></script>
-      <script src="./js/esmodule.js"></script>
-      <script src="./js/emitter.js"></script>
-      <script src="./js/sph-es.js"></script>
-      <script src="./sph_plugins/drawLon/index.js"></script>
-      <script src="./js/index.js"></script>
-
-      <!--<script src="<?php echo $d ?>/menu.js"></script> -->
       <script>
           var args = {
               <?php
@@ -113,7 +104,17 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                   };
               ?>
           };
+      </script>
+      <script src="./config/globe.js"></script>
+      <script src="./js/formBuilder.js"></script>
+      <script src="./js/esmodule.js"></script>
+      <script src="./js/emitter.js"></script>
+      <script src="./js/sph-es.js"></script>
+      <script src="./sph_plugins/drawLon/index.js"></script>
+      <script src="./js/index.js"></script>
 
+      <!--<script src="<?php echo $d ?>/menu.js"></script> -->
+      <script>
           function setmenu(menus) {
               menustr = "";
               for (k in menus) {
@@ -144,8 +145,11 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                       case "raw":
                           s = "<a " + v + ">" + k + "</a>\n";
                           break;
-                      case "esglobe_module":
-                          s = "<a href='javascript:void(0)' onclick=\"var esglobe = new Esglobe(); esglobe.loadModule('" + v + "')\" target='pages'>" + k + "</a>\n";
+//                      case "esglobe_module":
+//                          s = "<a href='javascript:void(0)' onclick=\"var esglobe = new Esglobe(); esglobe.loadModule('" + v + "')\" target='pages'>" + k + "</a>\n";
+//                          break;
+              case "esglobe_module":
+              s = "<a href=\'javascript:parent.loadmod(\"" + v + "\")' target='pages'>" + k + "</a>\n";
                           break;
                   };
 
@@ -155,6 +159,12 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
               document.getElementById("menu").innerHTML = menustr;
           }
 
+	  var esglobe;
+	  function loadmod(v){
+	    esglobe=new Esglobe();
+	    esglobe.loadModule(v);
+	  }
+	  
           function getsph(loc) {
               bn = loc.pathname;
               if (bn.endsWith("/"))

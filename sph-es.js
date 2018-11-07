@@ -24,10 +24,13 @@ var sph = {
     scalefac:1.06,
 };
 
-for (nm in args) {
+if(typeof args != "undefined") {
+  for (nm in args) {
     r=args[nm];
     if (r[0]=="[") r=eval(r);
     sph[nm]=r;
+      console.log(nm+" "+r);  
+  };
 };
 
 var url=rebase(sph.im);
