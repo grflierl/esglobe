@@ -129,21 +129,20 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                           s = "<a><b> -- " + k + " -- </b></a>\n";
                           break;
                       case "show":
-                          s = "<a href='javascript:sph.show(\"" + v + "\")'>" + k + "</a>\n";
+                          s = "<a href='javascript:sph.show(\"" + v + "\")' onClick='clearWidgets()'>" + k + "</a>\n";
                           break;
                       case "link":
                           if (v.indexOf("/") >= 0) {
-                              s = "<a href='" + v + "' target='pages'>" + k + "</a>\n";
+                              s = "<a href='" + v + "' target='pages' onClick='clearWidgets()'>" + k + "</a>\n";
                           } else {
-                              s = "<a href='<?php echo $d?>/" + v + "' target='pages'>" + k + "</a>\n";
+                              s = "<a href='<?php echo $d?>/" + v + "' target='pages' onClick='clearWidgets()'>" + k + "</a>\n";
                           }
-                          ;
                           break;
                       case "js":
-                          s = "<a href='javascript:" + v + "'>" + k + "</a>\n";
+                          s = "<a href='javascript:" + v + "' onClick='clearWidgets()'>" + k + "</a>\n";
                           break;
                       case "raw":
-                          s = "<a " + v + ">" + k + "</a>\n";
+                          s = "<a " + v + " onClick='clearWidgets()'>" + k + "</a>\n";
                           break;
 
                       case "esglobe_module":
