@@ -36,16 +36,20 @@ class Esglobe {
     }
 
     loadModule(moduleName) {
-        // clears the widgets
-        $('.widget').html("");
-
-        // clears the emitters
-        window.sph.emitter.clear();
+        this.unloadWidgets();
 
         // load the module iframe
         $('#esglobe-menu-frame').find('iframe').attr('src', `./esglobe_modules/${moduleName}`);
         if (typeof window.sph === 'undefined') window.sph = {};
         window.sph.loadedModule = moduleName;
+    }
+
+    unloadWidgets() {
+        // clears the widgets
+        $('.widget').html("");
+
+        // clears the emitters
+        window.sph.emitter.clear();
     }
 
     loadWidget(widgetName, options) {

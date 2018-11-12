@@ -123,7 +123,7 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                   typ = typ[0];
                   switch (typ) {
                       case "home":
-                          s = "<a href='<?php echo $url?>' target='pages'>" + k + "</a>\n";
+                          s = "<a href='<?php echo $url?>' onClick='clearWidgets()' target='pages'>" + k + "</a>\n";
                           break;
                       case "title":
                           s = "<a><b> -- " + k + " -- </b></a>\n";
@@ -145,26 +145,29 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                       case "raw":
                           s = "<a " + v + ">" + k + "</a>\n";
                           break;
-//                      case "esglobe_module":
-//                          s = "<a href='javascript:void(0)' onclick=\"var esglobe = new Esglobe(); esglobe.loadModule('" + v + "')\" target='pages'>" + k + "</a>\n";
-//                          break;
-              case "esglobe_module":
-              s = "<a href=\'javascript:parent.loadmod(\"" + v + "\")' target='pages'>" + k + "</a>\n";
+
+                      case "esglobe_module":
+                          s = "<a href=\'javascript:parent.loadmod(\"" + v + "\")' target='pages'>" + k + "</a>\n";
                           break;
-                  };
+                  }
 
                   menustr += s;
               }
-              ;
               document.getElementById("menu").innerHTML = menustr;
           }
 
-	  var esglobe;
-	  function loadmod(v){
-	    esglobe=new Esglobe();
-	    esglobe.loadModule(v);
-	  }
-	  
+          var esglobe;
+
+          function loadmod(v){
+            esglobe=new Esglobe();
+            esglobe.loadModule(v);
+          }
+
+          function clearWidgets(v){
+              esglobe=new Esglobe();
+              esglobe.unloadWidgets(v);
+          }
+
           function getsph(loc) {
               bn = loc.pathname;
               if (bn.endsWith("/"))
@@ -173,16 +176,13 @@ $qs=explode(";",$_SERVER["QUERY_STRING"]);
                   i = bn.lastIndexOf('/');
                   sph.baseurl = bn.substr(0, i) + "/";
               }
-              ;
               return sph;
           }
 
           function init() {
-              console.log(sph);
-//  savedmenu=menu;
-//  makemenu(menu);
+            console.log(sph);
           }
-      </script>
+    </script>
 
     </head>
 
