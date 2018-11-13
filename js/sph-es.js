@@ -41,8 +41,8 @@ if(typeof args != "undefined") {
     if (r[0]=="[") r=eval(r);
     sph[nm]=r;
       console.log(nm+" "+r);  
-  };
-};
+  }
+}
 
 var esglobe = {
     sz: 900,
@@ -51,6 +51,8 @@ var esglobe = {
     res: [2048, 1024],
     image: 'graphics/earth2048.jpg'
 };
+
+sph.res = esglobe.res;
 
 var disableDrag = false;
 
@@ -85,7 +87,7 @@ var sphereok=false;
 var nSphere=0;
 var currentFrame=0;
 
-var currentLatLon;
+var currentLatLon = [0, 0];
 
 function rebase(nm){
     console.log("===rebase input ===", nm);
@@ -205,8 +207,10 @@ function dragInSphere(mx,my){
 
 function clickInSphere(mx,my){
     xz=mouse2xz(mx,my);
-    if (xz[0]*xz[0]+xz[1]*xz[1]<=1){
-        emitter.emit('esglobe:sphereClick', { latlon: xy2latlon(xz) });
+    if (xz[0]*xz[0]+xz[1]*xz[1]<=1) {
+        var latlon = xy2latlon(xz);
+        currentLatLon = latlon;
+        emitter.emit('esglobe:sphereClick', { latlon: currentLatLon });
         if(sph.sphereClick){
             latlon = xy2latlon(xz);
             sph.sphereClick(xz,latlon);
@@ -224,6 +228,7 @@ function mouse2xz(mx,my){
     return [xt,zt];
 }
 function latlon2xy(latlon){
+    console.log("===SETTING CURRENT latlon2xy===", latlon);
     currentLatLon = latlon;
     lat=latlon[0];
     lon=latlon[1];
@@ -323,8 +328,8 @@ function orient(lat,lon){
     phi=lat*pi/180;
 }
 function show(fn){
+    if (typeof fn === 'undefined') return;
     url=rebase(fn);
-    console.log("===url===", url);
     if (url.slice(-3) == "mp4" || url.slice(-4) == "webm"){
         console.log("video "+url);
         vid = createVideo([url]);

@@ -249,7 +249,7 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope._updateGlobe = function(newVal) {
         // if it's a movie
-        $scope.sph.show(newVal.filename, '/esglobe_modules/ocean_climatology/data/output');
+        $scope.sph.show('/esglobe/esglobe_modules/ocean_climatology/data/output/' + newVal.filename);
         if (!newVal.bypassOrient)
             $scope.sph.orient(newVal.lat, newVal.lon);
 
@@ -262,7 +262,7 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope.getFrame = function (filename, frame) {
         var filename_frame = filename+"-"+frame+".png";
-        $scope.sph.show(filename_frame, '/esglobe_modules/ocean_climatology/data/output');
+        $scope.sph.show('/esglobe/esglobe_modules/ocean_climatology/data/output/' + filename_frame);
     };
 
     $scope.stepBack = function () {

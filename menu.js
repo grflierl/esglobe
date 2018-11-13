@@ -11,6 +11,7 @@ menu={
     "Interactive": ["title"],
     "Find positions": ["link","/esglobe/where"],
     "Drawing": ["link","/esglobe/draw/index.php"],
-    "Atmospheric Climatology": ["esglobe_module", "climatology"]
+    "Atmospheric Climatology": ["esglobe_module", "climatology"],
+    "Ocean Climatology": ["esglobe_module", "ocean_climatology"]
 };
 //for(j=1;j<4;j++)menu["ps-"+j]=["raw","href='pset-"+j+".pdf' target='pdf'"];

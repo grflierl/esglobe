@@ -10,6 +10,5 @@ $(document).ready(function () {
     });
 
     esglobe.loadWidget('globeControlsWidget', { position: 'bottom', col: 8, height: 60 });
-
-    esglobe.loadWidget('globeRotateControlsWidget', { position: 'top', col: 6 });
+    // esglobe.loadWidget('globeRotateControlsWidget', { position: 'top', col: 6 });
 });

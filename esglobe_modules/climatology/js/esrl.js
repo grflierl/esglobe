@@ -544,7 +544,6 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
 
     $scope.sph.emitter.subscribe('esglobe:sphereClick', function(data) {
         $scope.$apply(() => {
-
             $scope.section.input.lon = parseInt(data.latlon[1]);
             $scope.section.input.lat = parseInt(data.latlon[0]);
             $scope.section.input.zonalAverage = false;

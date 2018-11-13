@@ -387,8 +387,9 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
             if (message && typeof message.lon !== 'undefined') {
                 var latlon = $scope.sph.getCurrentLatLon();
-                $scope.sph.plugins.drawLon([latlon[0], message.lon]);
-                /!*$scope.input.latlon = [latlon[0], message.lon];*!/
+                if (latlon) {
+                    $scope.sph.plugins.drawLon([latlon[0], message.lon]);
+                }
             }
 
             if (message && (message.min || message.max)) {

@@ -1,4 +1,5 @@
 sph.plugins.drawLon = function (latlon){
+    console.log("===drawLon==", latlon);
     loadSphere(0);
     var xy = latlon2xy(latlon);
     var x = xy[0];
@@ -56,6 +57,8 @@ sph.plugins.drawLon = function (latlon){
         var y = xy[1];
         var northernCutoff = 0.3 * height;
         var southernCutoff = 0.7 * height;
+
+        console.log("=== cutoff? ===", y, northernCutoff, southernCutoff, height);
 
         if (y > northernCutoff && y < southernCutoff) {
             _drawLon()
