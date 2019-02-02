@@ -69,12 +69,17 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
             // do not update if lat lon changes for ESRL
             if (newVal.latlon !== oldVal.latlon) {
+                console.log("====input watch==");
                 // do nothing
+                $scope.sph.reloadEarth();
                 $timeout(() => {
                     if ($scope.input.latlon && _.isFunction($scope.sph.plugins.drawLon)) {
+                        $scope.reloadFrame();
                         $scope.sph.plugins.drawLon($scope.input.latlon);
                     }
                 }, 100);
+
+
             } else {
                 if (oldVal.field !== newVal.field || oldVal.depth !== newVal.depth) {
                     $scope.flags.bypassSphReset = false;
@@ -103,7 +108,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope.setDefaults = function (input) {
         var defaultRes = defaults.getDefaultContours(input, $scope.input.depth);
-        console.log("==default Res==", defaultRes, input);
         $scope.input.contourStep = defaultRes.contourStep;
         $scope.input.min = defaultRes.min;
         $scope.input.max = defaultRes.max;
@@ -248,8 +252,8 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
     };
 
     $scope._updateGlobe = function(newVal) {
-        // if it's a movie
-        $scope.sph.show('/esglobe/esglobe_modules/ocean_climatology/data/output/' + newVal.filename);
+        $scope.input.frame = '/esglobe/esglobe_modules/ocean_climatology/data/output/' + newVal.filename;
+        $scope.sph.show($scope.input.frame);
         if (!newVal.bypassOrient)
             $scope.sph.orient(newVal.lat, newVal.lon);
 
@@ -262,7 +266,12 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope.getFrame = function (filename, frame) {
         var filename_frame = filename+"-"+frame+".png";
-        $scope.sph.show('/esglobe/esglobe_modules/ocean_climatology/data/output/' + filename_frame);
+        $scope.input.frame = '/esglobe/esglobe_modules/ocean_climatology/data/output/' + filename_frame;
+        $scope.sph.show($scope.input.frame);
+    };
+
+    $scope.reloadFrame = function () {
+        $scope.sph.show($scope.input.frame);
     };
 
     $scope.stepBack = function () {
@@ -341,6 +350,7 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
                 $scope.input.saveData = true;
                 $scope.submitForm()
                     .then(function (results) {
+                        console.log("===xx download globe data");
                         $scope.downloadFile(results.base_filename)
                     })
             }
@@ -356,7 +366,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
             if (message && typeof message.lon !== 'undefined') {
                 var latlon = $scope.sph.getCurrentLatLon();
                 $scope.sph.plugins.drawLon([latlon[0], message.lon]);
-                /*$scope.input.latlon = [latlon[0], message.lon];*/
             }
 
             if (message && message.showLon && message.latlon) {

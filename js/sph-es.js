@@ -18,6 +18,7 @@ var sph = {
     getcanvas: getcanvas,
     putcanvas: putcanvas,
     reload: reload,
+    reloadEarth: reloadEarth,
     stop: stopSphere,
     latlon2xy: latlon2xy,
     getCurrentLatLon: getCurrentLatLon,
@@ -90,7 +91,6 @@ var currentFrame=0;
 var currentLatLon = [0, 0];
 
 function rebase(nm){
-    console.log("===rebase input ===", nm);
     if(nm.startsWith("<")){
         if(nm.indexOf("#") >= 0){
             nm="/esglobe/s.php"+sph.baseurl+"scripts/"+nm.substr(1);
@@ -228,7 +228,6 @@ function mouse2xz(mx,my){
     return [xt,zt];
 }
 function latlon2xy(latlon){
-    console.log("===SETTING CURRENT latlon2xy===", latlon);
     currentLatLon = latlon;
     lat=latlon[0];
     lon=latlon[1];
@@ -371,6 +370,11 @@ function putcanvas(c){
 
 function reload(c){
     pg = createGraphics(res[0],res[1]);
+    loadSphere(0);
+}
+
+function reloadEarth(){
+    url=rebase(sph.im);
     loadSphere(0);
 }
 

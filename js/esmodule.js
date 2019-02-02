@@ -70,7 +70,6 @@ class Esglobe {
 
         if (widgetName) {
             let iframeDiv = "";
-            console.log("====loadWidget===", moduleName);
             if (height && width) {
                 iframeDiv = `<iframe src="./esglobe_modules/${moduleName}/widgets/${widgetName}/${widgetName}.html" style="height:${height}px; width:${width}px"></iframe>`;
             } else if (height) {

@@ -1,7 +1,6 @@
 angular.module('resources.defaults', []).factory('defaults', function() {
     var service = {};
     service.getDefaultContours = function (input, depth) {
-        console.log("==depth===", depth);
         switch(input) {
             case "THETA":
                 if (!depth) {

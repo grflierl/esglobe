@@ -64,15 +64,12 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     // Functions to execute on load
     $timeout(function () {
-        console.log("===globeControl 001 ===");
         $scope.setDefaults($scope.esrl.input.field);
-        console.log("===globeControl 002 ===");
         /!*------ Watches ----*!/
         $scope.$watchCollection('esrl.input', function (newVal, oldVal) {
             if (!oldVal)
                 return;
             if ($scope.esrl.flags.showNow) {
-                console.log("===globeControl 003 ===");
                 // trigger a refresh
                 // restart movie if false;
                 $scope.esrl.flags.movie = false;
@@ -83,24 +80,19 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
                     action: 'pause'
                 });
 
-                console.log("===globeControl 004 ===");
 
                 // do not update if lat lon changes for ESRL
                 if (newVal.lat !== oldVal.lat || newVal.lon !== oldVal.lon) {
                     // do nothing
                 } else {
                     if (oldVal.field !== newVal.field || oldVal.press !== newVal.press) {
-                        console.log("===globeControl 005 ===");
                         $scope.setDefaults(newVal.field);
-                        console.log("===globeControl 006 ===");
                     }
 
                     if (!$scope.esrlForm.$invalid) {
-                        console.log("===globeControl 007 ===");
                         if ($scope.esrlInputWatchCount === 0) {
                             $scope.esrlInputWatchCount++;
                             $scope.submitEsrlForm().then(function () {
-                                console.log("===globeControl 008 ===");
                                 $scope.esrlInputWatchCount--;
                             });
                         }
@@ -112,7 +104,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
     });
 
     $scope.esrl.submit = function () {
-        console.log("===00 submitEsrlForm===");
         $scope.esrl.flags.showNow = false;
         $scope.submitEsrlForm()
             .then(function () {
@@ -122,7 +113,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
     };
 
     $scope.setDefaults = function (input) {
-        // console.log("=== 001 esrl set defaults ==", { input: input });
         var defaultRes = defaults.getEsrlDefaultsByLevel(input, $scope.esrl.input.press);
         $scope.esrl.input.contourStep = defaultRes.contour;
         $scope.esrl.input.min = defaultRes.min;
@@ -132,7 +122,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
     $scope.submitEsrlForm = function () {
         var res = new EsrlResource();
 
-        console.log("===submitEsrlForm===");
         res.time = $scope.esrl.input.time;
         res.press = $scope.esrl.input.press;
         res.field = $scope.esrl.input.field;
@@ -193,30 +182,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
             globeInput: $scope.esrl.input
         })
     };
-
-    $scope.downloadFile = function (filename, type) {
-        //Initialize file format you want csv or xls
-        var uri = `/esrl/output/${filename}.zip`;
-
-        console.log("===globe download file ===", uri);
-
-        //this trick will generate a temp <a /> tag
-        var link = document.createElement("a");
-        link.href = uri;
-
-        //set the visibility hidden so it will not effect on your web-layout
-        link.style = "visibility:hidden";
-
-        var field = $scope.esrl.input.field;
-        var time = $scope.esrl.input.time;
-        var level = $scope.esrl.input.press;
-        link.download = `globeData-${field}-${time}-level${level}.zip`; //this is an example file to download, use yours
-
-        //this part will append the anchor tag and remove it after automatic click
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
 
     $scope._updateGlobe = function(newVal) {
         // if it's a movie
@@ -332,11 +297,13 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope.downloadFile = function (filename, type) {
         //Initialize file format you want csv or xls
-        var uri = `/esrl/output/${filename}.zip`;
+        var uri = `./data/output/${filename}.zip`;
 
         //this trick will generate a temp <a /> tag
         var link = document.createElement("a");
         link.href = uri;
+
+        console.log("===downlaodFile===", link.href);
 
         //set the visibility hidden so it will not effect on your web-layout
         link.style = "visibility:hidden";
@@ -374,7 +341,7 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
                 $scope.submitEsrlForm()
                     .then(function (results) {
                         $scope.downloadFile(results.base_filename)
-                    })
+                    });
             }
 
             if (message && message.time) {
@@ -409,7 +376,6 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
             }
 
             if (message && message.showLon && message.latlon) {
-                console.log("===globeControls message.showLon===", message.showLon, message.latlon);
                 $scope.esrl.input.showLon = message.latlon;
             }
 

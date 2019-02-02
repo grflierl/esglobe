@@ -153,6 +153,29 @@ fieldTitle = titles[args.field]
 if args.field2 != 'none':
     field2Title = titles[args.field2]
 
+def purge(dir, pattern):
+  for f in os.listdir(dir):
+    if re.search(pattern, f):
+      print "purge MATCH", f
+      os.remove(os.path.join(dir, f))
+
+def writeData(lev, th):
+  #print "==== write data===\n"
+  #print th[::-1, ::-1]
+  #save the csv
+  np.savetxt(args.fn + '.lat.csv', lat1[latind][::-1], delimiter=',')
+  np.savetxt(args.fn + '.levels.csv', lev[::-1], delimiter=',')
+  np.savetxt(args.fn + '.data.csv', th[::-1, ::-1], delimiter=',')
+
+  output_zip = zipfile.ZipFile(fn+'.zip', 'w')
+  output_zip.write(args.fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(args.fn + '.levels.csv' , compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(args.fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.close()
+
+  purge('./', args.fn + '(.+)(.csv)')
+
+
 def read_nc(type):
     nc0=Dataset('../../data/ESRL-'+type+'.mon.1981-2010.ltm.nc')
     nc=nc0.variables
@@ -183,12 +206,8 @@ print "000: lon0", lon0
 
 lon2 = abs(lon1-lon0)
 lv = min(lon2)
-print "=== lon2 ====", lon2, lv
 
 lonind = lon2.tolist().index(lv)
-
-print "001: lonind", lonind
-print "002: final value", lon1[lonind]
 
 level1 = np.asarray(level1)
 
@@ -211,6 +230,9 @@ def colorbarFmt(x, pos):
     return int(x)
 
 def get_section_image(month, suffix):
+  print "===get section image==="
+  lev = level1[vind]
+  th = get_th(theta, month)
 
   if suffix:
     filename = fn + '-' + str(n) + '.png'
@@ -218,13 +240,13 @@ def get_section_image(month, suffix):
     filename = fn + '.png'
 
   if os.path.isfile(filename):
+    if args.saveData:
+      writeData(lev, th)
     return filename
 
-  th = get_th(theta, month)
   if args.field2 != 'none':
     th2 = get_th(theta2, month)
 
-  lev = level1[vind]
 
   import matplotlib
   import math
@@ -412,30 +434,9 @@ else: # It's a movie, so loop through all months
     print "getting", n
     print get_section_image(n, True)
 
+
 print (json.dumps({
   'status': 'OK'
 }))
-
-
-def purge(dir, pattern):
-  for f in os.listdir(dir):
-    if re.search(pattern, f):
-      print "purge MATCH", f
-      os.remove(os.path.join(dir, f))
-
-def writeData():
-  #save the csv
-  np.savetxt(fn + '.lat.csv', lat1[latind], delimiter=',')
-  np.savetxt(fn + '.levels.csv', lev, delimiter=',')
-  np.savetxt(fn + '.data.csv', th, delimiter=',')
-
-  output_zip = zipfile.ZipFile(fn+'.zip', 'w')
-  output_zip.write(fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(fn + '.levels.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.close()
-
-  purge('../../data/output/', args.fn + '(.+)(.csv)')
-
 
 

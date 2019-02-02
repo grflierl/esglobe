@@ -160,7 +160,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $log, $window, $timeout
     });
 
     $scope.sph.emitter.subscribe('iframeMessage', function(newVal) {
-        console.log("==main.js subscribe==", newVal);
         if (newVal && newVal.form === 'esrl' && newVal.filename) {
             $scope.$apply(function() {
                 $scope.messageGlobeColorBarWidget({ colorbarFilename: newVal.colorbarFilename });

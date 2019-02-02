@@ -40,7 +40,6 @@ app.controller('OceanClimatologyCtrl', function ($scope, $timeout, BackendResour
     $scope.sph.emitter.subscribe("iframeMessage", function(message) {
         $timeout(() => {
             if (message && message.globe && message.globe.time) {
-                console.log("===main.js subscribe===", message);
                 if ($scope.input.time !== message.globe.time)
                     $scope.input.time = message.globe.time;
             }
@@ -60,16 +59,17 @@ app.controller('OceanClimatologyCtrl', function ($scope, $timeout, BackendResour
         $scope.input.contourStep = defaultRes.contourStep;
         $scope.input.min = defaultRes.min;
         $scope.input.max = defaultRes.max;
-
-        console.log("===setting defaults===", $scope.input);
     };
 
     $scope.watchInputs = function () {
+        if (_.isFunction($scope.clearWatchInputs)) {
+            $scope.clearWatchInputs();
+        }
+
         $scope.clearWatchInputs = $scope.$watch('input', function (newVal, oldVal) {
             // console.log("===watchcollection main===", newVal, oldVal);
             // do not update if lat lon changes for ESRL
             if(newVal === oldVal || oldVal === undefined  ){
-                console.log("return") ;
                 return;
             }
 
