@@ -222,8 +222,8 @@ def purge(dir, pattern):
 
 def writeData():
   #save the csv
-  print "===write data==="
-  print lat
+  #print "===write data==="
+  #print lon
   np.savetxt(args.fn + '.lat.csv', lat, delimiter=',')
   np.savetxt(args.fn + '.lon.csv', lon, delimiter=',')
   np.savetxt(args.fn + '.data.csv', th, delimiter=',')
