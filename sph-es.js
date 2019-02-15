@@ -4,8 +4,8 @@ var sph = {
     orient: orient,
     show: show,
     skip: 1,
-    sphereClick: null,
-    sphereDrag: null,
+    click: null,
+    drag: null,
     mouseDown: null,
     mouseUp: null,
     im: "earth2048.jpg",
@@ -22,12 +22,19 @@ var sph = {
     sz:950,
     w:450,
     scalefac:1.06,
+    rotation:0,
+    annotate: null,
+    restore: restore,
 };
 
-for (nm in args) {
+if(typeof args != "undefined") {
+  for (nm in args) {
     r=args[nm];
     if (r[0]=="[") r=eval(r);
+      if(r[0] in ["0","1","2","3","4","5","6","7","8","9"]) r=eval(r);  
     sph[nm]=r;
+//      console.log(nm+" "+r);  
+  };
 };
 
 var url=rebase(sph.im);
@@ -47,11 +54,12 @@ var radtodeg=180.0/pi;
 
 var theta=pi;
 var phi=0;
-var rottheta=0;
+var rottheta=sph.rotation;
 var rotphi=0;
 
 var simg;
 var pg=false;
+var imbackup=false;
 
 var sphereok=false;
 var nSphere=0;
@@ -96,6 +104,10 @@ function drawSphere(){
     if(mp4){
 	texture(vid);
     } else {
+	if(sph.annotate){
+	    sph.restore();
+	    sph.annotate(pg.elt);
+	};
 	texture(pg);
     };
     rotateX(phi);
@@ -106,6 +118,7 @@ function drawSphere(){
 
 function checkSphere(im){
     pg.image(im,0,0,im.width,im.height,0,0,2048,1024);
+    imbackup=im;
     nSphere += skp;
     if(sph.notify)sph.notify(true);
     if(!movie) {
@@ -147,9 +160,9 @@ var y_p=0;
 function dragInSphere(mx,my){
     xz=mouse2xz(mx,my);
     if (xz[0]*xz[0]+xz[1]*xz[1]>1) return;
-    if(sph.sphereDrag){
+    if(sph.drag){
 	latlon=xy2latlon(xz);
-	r=sph.sphereDrag(xz,latlon);
+	r=sph.drag(xz,latlon);
 	if (!r) return;
     };
     theta += 0.005*(mx-x0);
@@ -164,13 +177,13 @@ function dragInSphere(mx,my){
 function clickInSphere(mx,my){
     xz=mouse2xz(mx,my);
     if (xz[0]*xz[0]+xz[1]*xz[1]<=1){
-	if(sph.sphereClick){
+	if(sph.click){
 	    latlon=xy2latlon(xz);
-	    sph.sphereClick(xz,latlon);
+	    sph.click(xz,latlon);
 	};
 //    } else {
-//	if(sph.sphereClick){
-//	    sph.sphereClick([-999,-999],[0,0]);
+//	if(sph.click){
+//	    sph.click([-999,-999],[0,0]);
 //	};
     };
 //    var typ="u";
@@ -211,7 +224,10 @@ function xy2latlon(xz){
 }
 
 function mousePressed(){
-    x00=x0=mouseX;
+    console.log("click "+mouseX+","+mouseY)
+    xz=mouse2xz(mouseX,mouseY);
+    if (xz[0]*xz[0]+xz[1]*xz[1]>1) return false;
+     x00=x0=mouseX;
     y00=y0=mouseY;
     if(sph.mouseDown){
 	xz=mouse2xz(x0,y0);
@@ -313,6 +329,10 @@ function putcanvas(c){
     pg.elt.width=c.width;
     pg.elt.height=c.height;
     context.drawImage(c, 0, 0);
+};
+
+function restore(){
+    pg.image(imbackup,0,0,imbackup.width,imbackup.height,0,0,2048,1024);
 };
 
 function reload(c){

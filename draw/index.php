@@ -142,7 +142,6 @@ function placetext(latlon){
     drawlist.push(currentlist);
     showdrawlist();
     textmode=false;
-//    if(onlineflag)savepng();
 }
 
 function showdrawlist(){
@@ -186,7 +185,6 @@ function redraw(){
 	d=drawlist[n];
 	dispfun[d[0][0]](d);
     };
-//    if(onlineflag)savepng();
     Linewidth=linewidthsv;
 }
 
@@ -266,7 +264,6 @@ function mouseup(xy,latlon){
 	Mousedown=false;
 	drawlist.push(currentlist);
 	showdrawlist();
-//	if(onlineflag)savepng();
     };
     return true;
 }
@@ -328,8 +325,8 @@ function init(){
 //    canvas_copy=cloneCanvas(canvas);
 //    ctx=canvas.getContext("2d");
 //    ctx.lineJoin = ctx.lineCap = 'round';
-    sph.sphereClick=doclick;
-    sph.sphereDrag=dodrag;
+    sph.click=doclick;
+    sph.drag=dodrag;
     sph.mouseUp=mouseup;
     sph.mouseDown=mousedown;
     Mousedown=false;
@@ -339,8 +336,8 @@ function init(){
     console.log(sph);
 }
 function finis(){
-    sph.sphereClick=null;
-    sph.sphereDrag=null;
+    sph.click=null;
+    sph.drag=null;
     sph.mouseUp=null;
     sph.mouseDown=null;
     Mousedown=false;

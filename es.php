@@ -1,8 +1,7 @@
-<!doctype html>
+ <!doctype html>
 <?php
 $qs=explode(";",$_SERVER["QUERY_STRING"]);
    $url=$qs[0];
-   $onlineflag=0;
    if(strpos($url,".html")>0 || strpos($url,".php")>0){
    $d=implode("/",explode("/",$url,-1));
    if(strlen($d)==0)$d=".";
@@ -92,11 +91,12 @@ var args={
   for ($n=1;$n<count($qs);$n++){
       $arg=explode("=",$qs[$n],2);
       echo $arg[0] . ':"' . $arg[1] . '",' ."\n";
-      if($arg[0]=="online")$onlineflag=1;
   };
   ?>
 };
 
+var ov={};
+  
 function setmenu(menus){
   menustr="";
   for(k in menus){
@@ -169,7 +169,6 @@ function init(){
   <area shape='rect' coords='0,128,47,159' href='javascript:sph.pause()'>
   <area shape='rect' coords='0,168,47,199' href='javascript:sph.stop()'>
 </map>
-
 <div class='rhs'>
  <ul>
 <li class="dropdown" style="float:left">
@@ -182,6 +181,6 @@ function init(){
 <iframe id='ifr' name="pages" src="http:<?php echo $url?>" height=900px width=800px>
 </iframe>
 </div>
-<span id="overlay"><span>
+<span id="overlay"></span>
 </body>
 </html>
