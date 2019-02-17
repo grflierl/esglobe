@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <?php
 $qs=explode(";",$_SERVER["QUERY_STRING"]);
    $url=$qs[0];
@@ -80,7 +80,6 @@ li.dropdown {
 <!-- Javascript modules --->
 <script src="p5.min.js"></script>
 <script src="p5.dom.min.js"></script>
-<!--<script src="<?php echo $d?>/menu.js"></script> -->
 <script>
 var args={
 //  sz:950,
