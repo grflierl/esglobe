@@ -113,9 +113,13 @@
                 }
 
                 error_log($cmd);
-                $output = exec($cmd);
-                $output = json_decode($output);
 
+                ob_start();
+                passthru($cmd);
+                $output = ob_get_clean();
+
+                error_log("===RESPONSE ===");
+                error_log($output);
             }
 
             echo json_encode(array(

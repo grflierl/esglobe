@@ -175,24 +175,18 @@ def get_lon_antipode(lon):
   if lon_anti < -180:
     lon_anti += 360
 
-  print "lon_anti", lon, lon_anti
   return lon_anti
 
 def get_lonind(lon_array, lon):
   lon0 = lon+360*(lon<0)
-  print "input lon", lon
-  print "000: lon0", lon0
+
   lon2 = abs(lon_array-lon0)
   lv = min(lon2)
   lonind = lon2.tolist().index(lv)
-
-  print "001: lonind", lonind
-  print "002: final value", lon_array[lonind]
   return lonind
 
 
 [lat1, lon1, level1, theta] = read_nc(args.field)
-print "lon1 original", lon1, lon1.shape
 if args.field2 != 'none':
   [lat2, lon2, level2, theta2] = read_nc(args.field2)
 
@@ -206,9 +200,6 @@ lat_south_ind = np.where((lat1 <= latr_south[1]) & (lat1 >= latr_south[0]))
 
 lonind = get_lonind(lon1, args.lon)
 lonind_anti = get_lonind(lon1, get_lon_antipode(args.lon))
-
-print "lat_south", lat_south_ind
-
 
 level1 = np.asarray(level1)
 
@@ -246,6 +237,50 @@ def get_th_polar(theta, month, lonind):
 
   return [lat1_out, th_out]
 
+
+def purge(dir, pattern):
+  for f in os.listdir(dir):
+    if re.search(pattern, f):
+      os.remove(os.path.join(dir, f))
+
+def writeData(lat, lat_anti, th, th_anti, lev):
+  #save the csv
+
+  # concat the lat, removing the middle common element
+  lat = np.concatenate([lat[::-1][:-1], lat_anti])
+
+  # reverse the first th
+  th = th[::-1, ::-1]
+
+  # remove the last element
+  th = np.delete(th, -1, axis=1)
+
+  # reverse the levels in the th_anti
+  th_anti = th_anti[::-1, :]
+
+  print th.shape, th_anti.shape
+
+  # concat the th together
+  th_concat = np.concatenate([th, th_anti], axis=1)
+
+  # reverse the levels
+  lev = lev[::-1]
+
+  print th_concat.shape, lev.shape, lat.shape
+
+  np.savetxt(fn + '.lat.csv', lat, delimiter=',')
+  np.savetxt(fn + '.levels.csv', lev, delimiter=',')
+  np.savetxt(fn + '.data.csv', th, delimiter=',')
+
+  output_zip = zipfile.ZipFile(fn+'.zip', 'w')
+  output_zip.write(fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.levels.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.close()
+
+  purge('../../data/output/', args.fn + '(.+)(.csv)')
+
+
 def get_section_image(month, suffix, position):
 
   if suffix:
@@ -277,7 +312,6 @@ def get_section_image(month, suffix, position):
 
   axarr[0].contourf(lat, lev, th, ranges, cmap=cm)
   CS2 = axarr[0].contour(lat, lev, th2, ranges2, colors='k')
-  print "ranges2", ranges2
 
   CS = axarr[1].contourf(lat_anti, lev_anti, th_anti, ranges_anti, cmap=cm)
   CS2_anti = axarr[1].contour(lat_anti, lev_anti, th2_anti, ranges2_anti, colors='k')
@@ -308,6 +342,9 @@ def get_section_image(month, suffix, position):
 
 
   f.savefig(filename, bbox_inches='tight', transparent = True)
+
+  if args.saveData:
+    writeData(lat, lat_anti, th, th_anti, lev)
 
   return filename
 
@@ -495,22 +532,6 @@ print (json.dumps({
 def purge(dir, pattern):
   for f in os.listdir(dir):
     if re.search(pattern, f):
-      print "purge MATCH", f
       os.remove(os.path.join(dir, f))
-
-def writeData():
-  #save the csv
-  np.savetxt(fn + '.lat.csv', lat1[latind], delimiter=',')
-  np.savetxt(fn + '.levels.csv', lev, delimiter=',')
-  np.savetxt(fn + '.data.csv', th, delimiter=',')
-
-  output_zip = zipfile.ZipFile(fn+'.zip', 'w')
-  output_zip.write(fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(fn + '.levels.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.close()
-
-  purge('../../data/output/', args.fn + '(.+)(.csv)')
-
 
 

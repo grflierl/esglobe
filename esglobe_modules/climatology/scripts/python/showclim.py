@@ -198,7 +198,7 @@ def splotit(th, overrideMin=False, overrideMax=False):
   cax = plt.axes([0.2, 0.1, 0.2, 0.8])
 
   if args.field != 'hgt':
-      cb = plt.colorbar(CS, orientation='vertical', cax=cax, format = ticker.FuncFormatter(colorbarFmt))
+      cb = plt.colorbar(CS, orientatixon='vertical', cax=cax, format = ticker.FuncFormatter(colorbarFmt))
 
       fg_color = 'white'
       # set colorbar tick color
