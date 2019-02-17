@@ -56,7 +56,7 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
 
         /*------ Watches ----*/
         $scope.$watchCollection('section.input', function (newVal, oldVal) {
-            console.log("====001 WATCH===", $scope.input.sectionRegion, $scope.section.input.lon);
+            console.log("====001 WATCH===", $scope.section.input.sectionRegion, $scope.section.input.lon);
             var submitForm = true;
 
             if (newVal.filename && newVal.filename !== oldVal.filename) {
@@ -471,7 +471,7 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
         res.logScale = $scope.section.input.logScale ? 'True' : 'False';
         res.zonalAverage = $scope.section.input.zonalAverage ? 'True' : 'False';
         res.fillContour = true;
-        res.sectionRegion = $scope.input.sectionRegion;
+        res.sectionRegion = $scope.section.input.sectionRegion;
 
         if ($scope.input.saveData)
             res.saveData = true;
@@ -543,7 +543,7 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
     $scope.sph.emitter.subscribe("drawLon:clickRegion", region => {
         $scope.$apply(() => {
             $scope.section.input.zonalAverage = false;
-            $scope.input.sectionRegion = region.region;
+            $scope.section.input.sectionRegion = region.region;
             $scope.section.input.lon = parseInt(region.lon);
         });
     });
