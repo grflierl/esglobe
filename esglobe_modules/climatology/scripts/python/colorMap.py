@@ -105,12 +105,12 @@ def pottmpColorMap(press_range):
 
 def uwndColorMap(press_range):
     if int(press_range) == 500:
-        min = -20
+        min = -80
         max = 40
         vcenter = 5
         vrange = 50
     else:
-        min = -50
+        min = -80
         max = 80
         vcenter = 5
         vrange = 100

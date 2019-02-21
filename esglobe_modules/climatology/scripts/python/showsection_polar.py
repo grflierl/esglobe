@@ -313,7 +313,10 @@ def get_section_image(month, suffix, position):
   if args.field2 == 'uwnd':
     axarr[1].contourf(lat, lev, th, ranges, cmap=cm)
     CS2 = axarr[1].contour(lat, lev, th2, ranges2, colors='k')
+
     th_anti = th_anti * -1
+    th2_anti = th2_anti * -1
+
     CS = axarr[0].contourf(lat_anti, lev_anti, th_anti, ranges_anti, cmap=cm)
     CS2_anti = axarr[0].contour(lat_anti, lev_anti, th2_anti, ranges2_anti, colors='k')
 
