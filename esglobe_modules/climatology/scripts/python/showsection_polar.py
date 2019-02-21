@@ -310,11 +310,20 @@ def get_section_image(month, suffix, position):
   [lat, lev, th, th2, ranges, ranges2, cm] = get_contour(month, lonind, position)
   [lat_anti, lev_anti, th_anti, th2_anti, ranges_anti, ranges2_anti, cm] = get_contour(month, lonind_anti, position)
 
-  axarr[0].contourf(lat, lev, th, ranges, cmap=cm)
-  CS2 = axarr[0].contour(lat, lev, th2, ranges2, colors='k')
+  if args.field2 == 'uwnd':
+    axarr[1].contourf(lat, lev, th, ranges, cmap=cm)
+    CS2 = axarr[1].contour(lat, lev, th2, ranges2, colors='k')
+    th_anti = th_anti * -1
+    CS = axarr[0].contourf(lat_anti, lev_anti, th_anti, ranges_anti, cmap=cm)
+    CS2_anti = axarr[0].contour(lat_anti, lev_anti, th2_anti, ranges2_anti, colors='k')
 
-  CS = axarr[1].contourf(lat_anti, lev_anti, th_anti, ranges_anti, cmap=cm)
-  CS2_anti = axarr[1].contour(lat_anti, lev_anti, th2_anti, ranges2_anti, colors='k')
+
+  else:
+    axarr[0].contourf(lat, lev, th, ranges, cmap=cm)
+    CS2 = axarr[0].contour(lat, lev, th2, ranges2, colors='k')
+
+    CS = axarr[1].contourf(lat_anti, lev_anti, th_anti, ranges_anti, cmap=cm)
+    CS2_anti = axarr[1].contour(lat_anti, lev_anti, th2_anti, ranges2_anti, colors='k')
 
 
   fmt2 = "%0.0f"
@@ -322,6 +331,7 @@ def get_section_image(month, suffix, position):
     fmt2="%0.1f"
   if args.field2 == 'omega':
     fmt2="%0.3f"
+
   plt.clabel(CS2, CS2.levels[::2], inline=True, fmt=fmt2, fontsize=14)
   plt.clabel(CS2_anti, CS2_anti.levels[::2], inline=True, fmt=fmt2, fontsize=14)
 

@@ -10,7 +10,7 @@ var esrl = angular.module('app-esrl', ['ngResource', 'app-esrl.services', 'app-e
 });*/
 
 
-esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $location, $templateCache, $compile, EsrlResource, defaults) {
+esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $location, $q, $templateCache, $compile, EsrlResource, defaults) {
     $scope.sph = parent.sph;
     $scope.data = {};
     $scope.data.fields = {
@@ -25,8 +25,12 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
         wspd: "Wind Speed"
     };
 
+    console.log("=======FEB 19 I AM HERE+===");
+
     $scope.data.levelArr = [1000, 925, 800, 700, 600, 500, 400, 300, 250, 200, 150, 100, 70, 50, 30, 20, 10];
     $scope.data.timeArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Year', 'Movie'];
+
+    $scope.input = {}; // for inputs that don't trigger watch
 
     $scope.section = {};
     $scope.section.input = {};
@@ -165,14 +169,6 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
         });
     });
 
-    $scope.downloadSectionData = function () {
-        $scope.section.input.saveData = true;
-        $scope.submitSectionForm()
-            .then(result => {
-                $scope.downloadFile(result.filename)
-            })
-    };
-
     $scope.downloadGlobeData = function () {
         $scope.message({
             action: 'sectionDownloadGlobeData'
@@ -180,26 +176,31 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
     };
 
     $scope.downloadFile = function (filename, type) {
-        //Initialize file format you want csv or xls
-        var uri = `./data/output/${filename}.zip`;
+        console.log("=== downloadoing file ==");
+        $timeout(() => {
+            //Initialize file format you want csv or xls
+            var uri = `/esglobe/esglobe_modules/climatology/data/output/${filename}.zip`;
 
-        //this trick will generate a temp <a /> tag
-        var link = document.createElement("a");
-        link.href = uri;
+            //this trick will generate a temp <a /> tag
+            var link = document.createElement("a");
+            link.href = uri;
 
-        //set the visibility hidden so it will not effect on your web-layout
-        link.style = "visibility:hidden";
+            //set the visibility hidden so it will not effect on your web-layout
+            link.style = "visibility:hidden";
 
 
-        var field = $scope.section.input.field;
-        var lon = $scope.section.input.lon;
-        var time = $scope.section.input.time;
-        link.download = `sectionData-${field}-${time}-lon${lon}.zip`; //this is an example file to download, use yours
+            var field = $scope.section.input.field;
+            var lon = $scope.section.input.lon;
+            var time = $scope.section.input.time;
+            link.download = `sectionData-${field}-${time}-lon${lon}.zip`; //this is an example file to download, use yours
 
-        //this part will append the anchor tag and remove it after automatic click
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            //this part will append the anchor tag and remove it after automatic click
+            document.body.appendChild(link);
+            console.log("===link ====", link);
+            link.click();
+            document.body.removeChild(link);
+        }, 100);
+
     };
 
     /**
@@ -413,7 +414,7 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
     };
 
     $scope.downloadSectionData = function () {
-        $scope.section.input.saveData = true;
+        $scope.input.saveData = true;
         $scope.submitSectionForm()
             .then(result => {
                 console.log("=== download section data result ==", result);
@@ -470,7 +471,7 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
         res.fillContour = true;
         res.sectionRegion = $scope.section.input.sectionRegion;
 
-        if ($scope.section.input.saveData)
+        if ($scope.input.saveData)
             res.saveData = true;
 
         if ($scope.section.input.field2) {
@@ -518,6 +519,8 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
 
         $scope.isLoading = true;
 
+        console.log("======res===", JSON.stringify(res, null, 4));
+
         return res.$submitForm().then(function (results) {
             $scope.section.input.filename = results.filename;
             if ($scope.section.input.time === 'Movie'){
@@ -537,15 +540,21 @@ esrl.controller('EsrlChildController', function ($scope, $timeout, $uibModal, $l
 
     $scope.sph.emitter.subscribe("drawLon:clickRegion", region => {
         $scope.$apply(() => {
-            $scope.section.input.sectionRegion = region;
+            $scope.section.input.zonalAverage = false;
+            $scope.section.input.sectionRegion = region.region;
+            $scope.section.input.lon = parseInt(region.lon);
         });
     });
 
     $scope.sph.emitter.subscribe('esglobe:sphereClick', function(data) {
         $scope.$apply(() => {
-            $scope.section.input.lon = parseInt(data.latlon[1]);
-            $scope.section.input.lat = parseInt(data.latlon[0]);
-            $scope.section.input.zonalAverage = false;
+            console.log("===data===", data);
+            if (data.latlon) {
+                $scope.sph.plugins.drawLon(data.latlon);
+            }
+            // $scope.section.input.lon = parseInt(data.latlon[1]);
+            // $scope.section.input.lat = parseInt(data.latlon[0]);
+            // $scope.section.input.zonalAverage = false;
         });
     });
 
