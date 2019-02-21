@@ -17,7 +17,7 @@ sph.plugins.drawLon = function (latlon){
         ctx.moveTo(x,0);
         ctx.lineTo(x,height-1);
         ctx.stroke();
-        sph.emitter.emit("drawLon:clickRegion", "lon");
+        sph.emitter.emit("drawLon:clickRegion", { region: "lon", lat: latlon[0], lon: latlon[1] });
     };
 
     var _drawSouthern = function () {
@@ -33,7 +33,7 @@ sph.plugins.drawLon = function (latlon){
         ctx.lineTo(xy2[0], height);
         ctx.stroke();
 
-        sph.emitter.emit("drawLon:clickRegion", "southern");
+        sph.emitter.emit("drawLon:clickRegion", { region: "southern", lat: latlon[0], lon: latlon[1] });
     };
 
     var _drawNorthern = function () {
@@ -48,7 +48,7 @@ sph.plugins.drawLon = function (latlon){
         ctx.moveTo(xy2[0], 0);
         ctx.lineTo(xy2[0], height/2);
         ctx.stroke();
-        sph.emitter.emit("drawLon:clickRegion", "northern");
+        sph.emitter.emit("drawLon:clickRegion", { region: "northern", lat: latlon[0], lon: latlon[1] });
     };
 
 

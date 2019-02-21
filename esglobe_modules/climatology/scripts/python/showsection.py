@@ -156,24 +156,26 @@ if args.field2 != 'none':
 def purge(dir, pattern):
   for f in os.listdir(dir):
     if re.search(pattern, f):
-      print "purge MATCH", f
       os.remove(os.path.join(dir, f))
 
 def writeData(lev, th):
-  #print "==== write data===\n"
-  #print th[::-1, ::-1]
   #save the csv
-  np.savetxt(args.fn + '.lat.csv', lat1[latind][::-1], delimiter=',')
-  np.savetxt(args.fn + '.levels.csv', lev[::-1], delimiter=',')
-  np.savetxt(args.fn + '.data.csv', th[::-1, ::-1], delimiter=',')
+  print "writing data...", args.fn, fn
+  np.savetxt(fn + '.lat.csv', lat1[latind][::-1], delimiter=',')
+  np.savetxt(fn + '.levels.csv', lev[::-1], delimiter=',')
+  np.savetxt(fn + '.data.csv', th[::-1, ::-1], delimiter=',')
 
+  print "001 writing data..."
   output_zip = zipfile.ZipFile(fn+'.zip', 'w')
-  output_zip.write(args.fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(args.fn + '.levels.csv' , compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(args.fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
+  print "002 writing data..."
+  output_zip.write(fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.levels.csv' , compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
+
   output_zip.close()
 
-  purge('./', args.fn + '(.+)(.csv)')
+  print "close zip..."
+  purge('../../data/output', args.fn + '(.+)(.csv)')
 
 
 def read_nc(type):
@@ -200,9 +202,6 @@ lat1 = np.asarray(lat1)
 latind = np.where((lat1 <= latr[1]) & (lat1 >= latr[0]))
 
 lon0 = args.lon+360*(args.lon<0)
-print "input lon", args.lon
-print "000: lon0", lon0
-
 
 lon2 = abs(lon1-lon0)
 lv = min(lon2)
@@ -230,7 +229,7 @@ def colorbarFmt(x, pos):
     return int(x)
 
 def get_section_image(month, suffix):
-  print "===get section image==="
+  print "getting section image"
   lev = level1[vind]
   th = get_th(theta, month)
 
@@ -402,7 +401,7 @@ def get_section_image(month, suffix):
   plt.savefig(filename, bbox_inches='tight', transparent = True)
 
   if args.saveData:
-    writeData()
+    writeData(lev, th)
 
   return filename
 
@@ -427,7 +426,7 @@ def get_th(theta, mon):
     return th
 
 if mon != -2:
-  print get_section_image(mon, False)
+  get_section_image(mon, False)
 else: # It's a movie, so loop through all months
   nr=range(0,12)
   for n in nr:

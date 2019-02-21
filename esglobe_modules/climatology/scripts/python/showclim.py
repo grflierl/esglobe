@@ -222,19 +222,19 @@ def purge(dir, pattern):
 
 def writeData():
   #save the csv
-  #print "===write data==="
+  print "===write data==="
   #print lon
-  np.savetxt(args.fn + '.lat.csv', lat, delimiter=',')
-  np.savetxt(args.fn + '.lon.csv', lon, delimiter=',')
-  np.savetxt(args.fn + '.data.csv', th, delimiter=',')
+  np.savetxt(fn + '.lat.csv', lat, delimiter=',')
+  np.savetxt(fn + '.lon.csv', lon, delimiter=',')
+  np.savetxt(fn + '.data.csv', th, delimiter=',')
 
   output_zip = zipfile.ZipFile(fn+'.zip', 'w')
-  output_zip.write(args.fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(args.fn + '.lon.csv', compress_type=zipfile.ZIP_DEFLATED)
-  output_zip.write(args.fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.lat.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.lon.csv', compress_type=zipfile.ZIP_DEFLATED)
+  output_zip.write(fn + '.data.csv', compress_type=zipfile.ZIP_DEFLATED)
   output_zip.close()
 
-  purge('./', args.fn + '(.+)(.csv)')
+  purge('../../data/output', args.fn + '(.+)(.csv)')
 
 months={"Jan":0,"Feb":1,"Mar":2,"Apr":3,"May":4,"Jun":5,"Jul":6,"Aug":7,"Sep":8,"Oct":9,"Nov":10,"Dec":11,"Movie":-1, "Year":-2}
 t0=months[args.time]

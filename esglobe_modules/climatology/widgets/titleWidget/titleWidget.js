@@ -9,6 +9,7 @@ titleWidget.controller('TitleWidgetController', function ($scope, $timeout) {
     $scope.sph.emitter.subscribe('iframeMessage', function(data) {
         if (data && data.titleWidget) {
             $scope.$apply(function () {
+                $scope.title = data.titleWidget.title;
                 $scope.level = data.titleWidget.level;
                 $scope.timepoint = data.titleWidget.timepoint;
             })

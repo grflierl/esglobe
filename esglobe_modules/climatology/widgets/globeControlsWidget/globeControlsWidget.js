@@ -76,9 +76,7 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
                 $scope.esrl.flags.moviePlay = true;
 
                 // pause the main view
-                $scope.message({
-                    action: 'pause'
-                });
+                $scope.pause = true;
 
 
                 // do not update if lat lon changes for ESRL
@@ -244,7 +242,8 @@ globeControlsWidget.controller('GlobeControlsWidgetController', function ($scope
 
     $scope.getFrame = function (filename, frame) {
         var filename_frame = filename+"-"+frame+".png";
-        $scope.sph.show(filename_frame, '/esglobe/esglobe_modules/climatology/data/output');
+
+        $scope.sph.show('/esglobe/esglobe_modules/climatology/data/output/' + filename_frame);
     };
 
     $scope.toggleMoviePause = function () {
