@@ -66,17 +66,18 @@ var nSphere=0;
 var currentFrame=0;
 
 function rebase(nm){
-    if(nm.startsWith("<")){
+    tst=nm.charAt(0)
+    if(tst=='<'){
 	if(nm.indexOf("#") >= 0){
 	    nm="/esglobe/s.php"+sph.baseurl+"scripts/"+nm.substr(1);
 	} else {
 	    nm="/esglobe/s0.php"+sph.baseurl+"scripts/"+nm.substr(1);
 	};
 	console.log("rebase -> "+nm);
-    }else if(nm.startsWith("@")){
+    }else if(tst=='@'){
 	nm="/esglobe/ht.php/"+nm.substr(1);
 //	console.log("trans "+nm);
-    }else if(!nm.startsWith("/")){
+    }else if(tst != '/'){
 	nm=sph.baseurl+"graphics/"+nm;
     };
 //    console.log("rebase -> "+nm);

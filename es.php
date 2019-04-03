@@ -94,41 +94,25 @@ var args={
   ?>
 };
 
+function getAjax(url, success) {
+  var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new
+  ActiveXObject('Microsoft.XMLHTTP'); 
+  xhr.open('GET', url, false);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState>3 && xhr.status==200) success(xhr.responseText);
+  }; 
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  xhr.send();
+  return xhr;
+}
+
 var ov={};
   
-function setmenu(menus){
-  menustr="";
-  for(k in menus){
-    typ=menus[k];
-    v=typ[1];
-    typ=typ[0];
-    switch(typ){
-    case "home":
-	s="<a href='<?php echo $url?>' target='pages'>"+k+"</a>\n";
-	break;
-    case "title":
-	s="<a><b> -- "+k+" -- </b></a>\n";
-	break;
-    case "show":
-	s="<a href='javascript:sph.show(\""+v+"\")'>"+k+"</a>\n";
-	break;
-    case "link":
-	if(v.indexOf("/") >= 0){
-	    s="<a href='"+v+"' target='pages'>"+k+"</a>\n";
-	} else {
-	    s="<a href='<?php echo $d?>/"+v+"' target='pages'>"+k+"</a>\n";
-	};
-	break;
-    case "js":
-	s="<a href='javascript:"+v+"'>"+k+"</a>\n";
-	break;
-    case "raw":
-	s="<a "+v+">"+k+"</a>\n";
-	break;
-    };
-    menustr+=s;
-  };
-  document.getElementById("menu").innerHTML=menustr;
+function setmenu(menufile){
+    getAjax(menufile,
+	    function(s){
+		document.getElementById("menu").innerHTML=s;
+	    })
 }
 
 function getsph(loc){
@@ -156,7 +140,6 @@ function init(){
 <body onload='init()'>
 <script>
   var sph = window.sph;
-//  sph.baseurl="/esglobe/307/graphics/"
 </script>
 <img src="cmd2.jpg"
      style='position:absolute;left:1000px;top:10px;width:48px;height:208px'
