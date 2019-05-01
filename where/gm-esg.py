@@ -57,7 +57,8 @@ fd.close()
 
 if len(v)>0:
     plt.plot(yr,v,'o',yr,v)
-    plt.xlim(int(yr[0]),int(yr[-1]))
+    plt.xticks(range(0,len(yr),10))
+#    plt.xlim(int(yr[0]),int(yr[-1]))
     plt.title(title)
     plt.xlabel(country)
 else:
