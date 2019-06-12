@@ -7,9 +7,15 @@
   background-repeat: no-repeat;
   }
   a{
-  color:white;
+/ color:white;
   }
 </style>
+<script>
+function showuserimage(id){
+  userurl=document.getElementById(id).value;
+  sph.show(userurl);
+  }
+</script>
 <body>
 
 <!--  include the globe on the left -->
@@ -37,8 +43,6 @@ interaction with the underlying data sets.
   <ul>
     <li><a href='javascript:sph.orient(50,180);sph.show("fukushima.mp4")'>Fukushima
 	Radioactive Aerosol Dispersion</a>
-    <li><a href='javascript:sph.orient(20,0);sph.show("/esglobe/307/graphics/aerosols.mp4")'>Atmospheric
-    Aerosols</a> 
   </ul>
 </p>
 
@@ -46,11 +50,21 @@ interaction with the underlying data sets.
   <h3>Course and interactive examples</h3>
   <ul>
     <li><a href="http://eddies.mit.edu/esglobe/es.php?course.html">Structure
-    of course web page
-    <li><a href="http://eddies.mit.edu/esglobe/es.php?gapminder/  gm1.html">Gapminder
-    example
+    of course web page</a>
   </ul>
 </p>
+
+<p>
+  <h3>Show image</h3>
+  <input id="userimage" type="text"
+	 style="font-size:20px;background:white"
+	 value="@lake.mit.edu/igm/library.jpg"
+	 onchange="showuserimage('userimage')"/><br/>
+  <input type="submit" value="show"
+	 onclick="showuserimage('userimage')"
+	 style="font-size:20px;background:white"/><br/>
+</p>
+
 
 </body>
 </html>

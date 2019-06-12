@@ -2,11 +2,17 @@
   <!-- Javascript modules --->
 <script src="http://eddies.mit.edu/esglobe/p5.min.js"></script>
 <script src="http://eddies.mit.edu/esglobe/p5.dom.min.js"></script>
+
+<!-- script not needed if you have the default (earth2048.jpg)
+     in the graphics subdir but shows how to start with earthclouds.jpg
+     You could use earth2048 or some other image elsewhere
 <script>
-var args={
-  im:"@eddies.mit.edu/esglobe/graphics/earth2048.jpg",
-};
-</script>
+  var args={
+  im:"@eddies.mit.edu/esglobe/graphics/earthclouds.jpg",
+//  im:"@lake.mit.edu/igm/library.jpg",
+  };
+</script>-->
+
 <script src="http://eddies.mit.edu/esglobe/sph-es.js"></script>
 <script>
   parent.sph = sph;
@@ -28,7 +34,7 @@ This illustrates showing some images
 </p>
 
 <p>
-<a href='javascript:sph.show("<plastic?#;42;-50")'>Wind resources</a>
+<a href='javascript:sph.show("global_solar_resources.png")'>Wind resources</a>
 </p>
 
 <p>

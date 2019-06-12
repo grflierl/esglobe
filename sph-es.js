@@ -274,7 +274,7 @@ function draw(){
 //    if(keyIsPressed)console.log(key);
     if(nSphere <= currentFrame) return;
     drawSphere();
-    if(movie && sphereok){
+    if(movie && sphereok && playing){
 	currentFrame += sph.skip;
 	loadSphere(currentFrame);
     };
