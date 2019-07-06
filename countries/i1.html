@@ -1,0 +1,53 @@
+<html>
+<head>
+<script>
+sph=parent.getsph(location);
+
+function init(){
+sph.click=doclick;
+//sph.show("political.png");
+sph.orient(0,0);
+}
+function finis(){
+    sph.click=null;
+}
+
+function showcn(res){
+  console.log("here");
+  document.getElementById("cntry").innerHTML=res;
+}
+
+function rnd(v,n){
+    return Math.round(v*n)/n;
+}
+function copyText(field,msg)
+{
+  document.getElementById(field).value=msg;
+}
+function doclick(xy,latlon){
+// returns [x,y] on a -1 to 1 and [lat,lon]
+    lat=rnd(latlon[0],10);
+    lon=rnd(latlon[1],10);
+    sph.orient(lat,lon);
+    copyText("m2lat",lat);
+    copyText("m2lon",lon);
+    sph.show("<hlcountry2?"+lat+","+lon);
+    console.log("countries/showcountry.php?"+lat+","+lon);
+    parent.getAjax("countries/showcountry.php?"+lat+","+lon,showcn);
+}
+</script>
+</head>
+
+<body onload='init()' onunload='finis()' style='background-color:#aabbcc'>
+  <h1>Click on the map</h1>
+
+<h2>The country at</h2>
+<p>
+Lat <input type="text" id="m2lat" name="lat" size=4 value=""><br/>
+Lon <input type="text" id="m2lon" name="lon" size=4 value=""><br/>
+</p>
+<h2>is:</h2>
+<h1><span id="cntry"></h1>
+</p>
+</body>
+</html>

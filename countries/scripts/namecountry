@@ -1,0 +1,21 @@
+#!/usr/bin/python
+# namecountry QUERY_STRING=lat,lon
+from PIL import Image
+import numpy as np
+import sys
+from countries_gm import countries
+
+latlon=sys.argv[1].split(",")
+lat=float(latlon[0])
+lon=float(latlon[1])
+
+im=Image.open("map.pgm")
+i=int(np.round((lon+180)/360*(im.size[0]-1)))
+j=int(np.round((90-lat)/180*(im.size[1]-1)))
+cn=im.getpixel((i,j))
+try:
+    c=countries.values().index(cn)
+except:
+    print "%d is not in list"%cn
+    exit(0)
+print countries.keys()[c]

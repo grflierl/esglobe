@@ -1,0 +1,38 @@
+#!/usr/bin/python
+# hlcountry QUERY_STRING=lat,lon
+from PIL import Image
+import numpy as np
+import sys
+from countries_gm import countries
+import os
+from cStringIO import StringIO
+
+latlon=sys.argv[1].split(",")
+lat=float(latlon[0])
+lon=float(latlon[1])
+
+im=Image.open("map.pgm")
+i=int(np.round((lon+180)/360*(im.size[0]-1)))
+j=int(np.round((90-lat)/180*(im.size[1]-1)))
+cn=im.getpixel((i,j))
+try:
+    c=countries.values().index(cn)
+except:
+    print "%d is not in list"%cn
+    print "</h1>"
+    exit(0)
+
+col=np.zeros(3*256).astype(int)
+
+col[3*cn]=255
+col[255*3]=127
+col[255*3+1]=127
+col[255*3+2]=127
+im.putpalette(col)
+imn=im.convert("RGB")
+
+jpg=StringIO()
+imn.save(jpg,'jpeg')
+s=jpg.getvalue()
+sys.stdout.write(s)
+

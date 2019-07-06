@@ -81,11 +81,18 @@ li.dropdown {
 <script src="p5.min.js"></script>
 <script src="p5.dom.min.js"></script>
 <script>
+    <?php
+  echo 'var
+  root="'.str_replace("/es.php","",$_SERVER["SCRIPT_NAME"]).'";'."\n";
+  ?>
 var args={
 //  sz:950,
 //  w:450,
 //  scalefac:1.06,
   <?php
+    echo 'im:"'.str_replace("es.php","",$_SERVER["SCRIPT_NAME"]).
+	'graphics/earth2048.jpg",'."\n";
+//    echo 'root:"'.str_replace("/es.php","",$_SERVER["SCRIPT_NAME"]).'",'."\n";
   if(count($qs) > 1)
   for ($n=1;$n<count($qs);$n++){
       $arg=explode("=",$qs[$n],2);
@@ -116,13 +123,16 @@ function setmenu(menufile){
 }
 
 function getsph(loc){
-  bn=loc.pathname;
-  if(bn.endsWith("/"))
-    sph.baseurl=bn;
-  else {
-    i=bn.lastIndexOf('/');
-    sph.baseurl=bn.substr(0,i)+"/";
-  };
+    //    bn=loc.pathname.replace(sph.root,"");
+        bn=loc.pathname.replace(root,"");
+//  if(bn.endsWith("/"))
+//    sph.baseurl=bn;
+//  else {
+//    i=bn.lastIndexOf('/');
+//    sph.baseurl=bn.substr(0,i)+"/";
+//  };
+  i=bn.lastIndexOf('/');
+  sph.baseurl=bn.substr(1,i);
   return sph;
   }
 

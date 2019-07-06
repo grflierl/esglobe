@@ -9,7 +9,7 @@ var sph = {
     mouseDown: null,
     mouseUp: null,
     im: "earth2048.jpg",
-    baseurl: "/esglobe/",
+    baseurl: "",
     getcanvas: getcanvas,
     putcanvas: putcanvas,
     reload: reload,
@@ -37,8 +37,8 @@ if(typeof args != "undefined") {
   };
 };
 
-var url=rebase(sph.im);
-sph.im=url;
+var url=sph.im;
+//sph.im=url;
 var sz = sph.sz;
 var w = sph.w;
 var scalefac=sph.scalefac;
@@ -69,18 +69,21 @@ function rebase(nm){
     tst=nm.charAt(0)
     if(tst=='<'){
 	if(nm.indexOf("#") >= 0){
-	    nm="/esglobe/s.php"+sph.baseurl+"scripts/"+nm.substr(1);
+//	    nm="s.php"+sph.baseurl+"scripts/"+nm.substr(1);
+	    nm="s.php/"+sph.baseurl+"scripts/"+nm.substr(1);
 	} else {
-	    nm="/esglobe/s0.php"+sph.baseurl+"scripts/"+nm.substr(1);
+	    nm="s0.php/"+sph.baseurl+"scripts/"+nm.substr(1);
+//	    nm="s0.php/"+nm.substr(1);
 	};
-	console.log("rebase -> "+nm);
+//	console.log("rebase -> "+nm);
     }else if(tst=='@'){
-	nm="/esglobe/ht.php/"+nm.substr(1);
+	//	nm="/esglobe/ht.php/"+nm.substr(1);
+	nm="ht.php/"+nm.substr(1);
 //	console.log("trans "+nm);
     }else if(tst != '/'){
 	nm=sph.baseurl+"graphics/"+nm;
     };
-//    console.log("rebase -> "+nm);
+    console.log("rebase -> "+nm);
     return nm;
 }
 
@@ -266,7 +269,12 @@ function setup(){
     maincanvas.position(sph.position[0],sph.position[1]);
     ortho(-width/2,width/2,-height/2,height/2,-1000,1000);
     pg = createGraphics(2048,1024);
-    loadSphere(0);
+    //    loadSphere(0);
+    if (url.slice(-3) == "mp4" || url.slice(-4) == "webm"){
+	url=rebase("earth2048.jpg");
+	loadSphere(0);
+    };
+    sph.show(sph.im);
 //    maincanvas.elt.addEventListener('keydown', myevent, false);
 }
 

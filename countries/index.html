@@ -1,0 +1,37 @@
+<html>
+  <head>
+<script src="/esglobe/overlay.js"></script>
+<script>
+var sph=parent.getsph(location);
+
+// var savedmenu;
+function init(){
+  sph=parent.sph;
+  haid=overlay("ov",["ha"]);
+//window.open("http://www.gapminder.org/data");
+//  savedmenu=parent.savedmenu;
+  parent.setmenu("countries/menu.html");
+}
+function finis(){
+  overlay();
+//  parent.setmenu();
+}
+</script>
+  </head>
+  <body onload='init()' onunload='finis()' style='font-size:20px'>
+    <span id='ov' style='display:none'>
+      <div style='position:absolute;left:10px;top:10px;z-index:5'>
+	<h2 id='ha'style='color:cyan'>EsGlobe - Country modules</h2>
+      </div>
+    </span>
+
+    <h2>Find countries</h2>
+
+    <ol>
+      <li> Select "Political map" from the menu</li>
+      <li> Select "Find" from the menu. This could have been done within
+           this page, but this shows how to switch within a module.</li>
+    </ol>
+	
+  </body>
+</html>
